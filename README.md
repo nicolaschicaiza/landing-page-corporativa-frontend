@@ -24,6 +24,15 @@ Copiar `.env.example` a `.env` y completar:
 - `FIREBASE_PRIVATE_KEY`
 - `ALLOWED_ORIGIN` (opcional en local)
 
+Opcional para notificaciones por correo de nuevos leads:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `NOTIFY_EMAIL_FROM` (ej: `Leads Intellia <no-reply@intellia.dev>`)
+- `NOTIFY_EMAIL_TO` (correo destino interno)
+
 ## Endpoint de leads
 
 - URL: `/.netlify/functions/contact`

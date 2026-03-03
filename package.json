@@ -13,6 +13,7 @@
     "@astrojs/netlify": "^6.3.0",
     "@netlify/functions": "^2.8.1",
     "astro": "^5.2.0",
-    "firebase-admin": "^13.0.0"
+    "firebase-admin": "^13.0.0",
+    "nodemailer": "^6.10.0"
   }
 }
