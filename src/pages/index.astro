@@ -6,97 +6,353 @@ import "../styles/global.css";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>IntelliaWorks | Servicios de tecnologia freelance</title>
+    <title>IntelliaWorks | Servicios de tecnología freelance</title>
     <meta
       name="description"
-      content="Desarrollo, gestion de proyectos, marketing, cloud y QA para equipos que quieren avanzar rapido."
+      content="Desarrollo, gestión de proyectos, marketing, cloud y QA para equipos que buscan crecer con tecnología."
     />
   </head>
   <body>
-    <main class="wrapper">
-      <section class="hero">
-        <p>INTELLIAWORKS</p>
-        <h1>Tecnologia freelance para convertir ideas en resultados</h1>
-        <p>
-          Te ayudamos con desarrollo, gestion de proyectos, marketing, cloud y QA para lanzar y escalar
-          productos digitales.
-        </p>
-        <div class="chips">
-          <span>Desarrollo</span>
-          <span>Gestion de proyectos</span>
-          <span>Marketing</span>
-          <span>Cloud</span>
-          <span>QA</span>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <header class="site-header">
+      <div class="wrapper header-inner">
+        <a class="brand" href="#inicio">
+          <span class="brand-dot"></span>
+          <span>INTELLIAWORKS</span>
+        </a>
+
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav id="main-nav" class="main-nav">
+          <a href="#servicios">Servicios</a>
+          <a href="#proceso">Proceso</a>
+          <a href="#resultados">Resultados</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacto" class="cta-small">Hablemos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="inicio" class="section-block tone-hero reveal">
+        <div class="wrapper hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">Consultoría y ejecución digital</p>
+            <h1>Construimos experiencias digitales que venden y escalan.</h1>
+            <p>
+              Combinamos desarrollo, marketing, cloud y QA para ayudarte a lanzar más rápido, convertir mejor y
+              tomar decisiones con datos.
+            </p>
+            <div class="hero-actions">
+              <a href="#contacto" class="btn btn-primary">Solicitar propuesta</a>
+              <a href="#servicios" class="btn btn-ghost">Ver servicios</a>
+            </div>
+            <div class="hero-points">
+              <span>Discovery estratégico</span>
+              <span>Entrega iterativa</span>
+              <span>Arquitectura escalable</span>
+            </div>
+            <div class="trust-row">
+              <span>Entrega continua</span>
+              <span>Arquitectura escalable</span>
+              <span>QA desde el inicio</span>
+            </div>
+          </div>
+
+          <aside class="hero-showcase">
+            <div class="showcase-window">
+              <div class="showcase-topbar">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <article class="showcase-block">
+                <p class="panel-title">Servicio recomendado</p>
+                <h3>Landing + Embudo + Automatización</h3>
+                <p>
+                  Diseño de adquisición completo para convertir visitas en oportunidades comerciales reales.
+                </p>
+              </article>
+
+              <article class="showcase-block">
+                <p class="panel-title">Plan 30-60-90</p>
+                <ul>
+                  <li><strong>30 días:</strong> base técnica y tracking</li>
+                  <li><strong>60 días:</strong> automatizaciones y pruebas A/B</li>
+                  <li><strong>90 días:</strong> optimización por métricas</li>
+                </ul>
+              </article>
+
+              <div class="showcase-metrics">
+                <article>
+                  <p>+34%</p>
+                  <span>conversión media</span>
+                </article>
+                <article>
+                  <p>24h</p>
+                  <span>respuesta inicial</span>
+                </article>
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section class="grid">
-        <article class="card">
-          <h3>Desarrollo</h3>
-          <p>Landing pages, apps web y APIs enfocadas en negocio.</p>
-        </article>
-        <article class="card">
-          <h3>Gestion de proyectos</h3>
-          <p>Planificacion, seguimiento y entrega continua de valor.</p>
-        </article>
-        <article class="card">
-          <h3>Marketing tecnologico</h3>
-          <p>Embudos, automatizacion y analitica para mas conversion.</p>
-        </article>
+      <section id="servicios" class="section-block tone-a reveal">
+        <div class="wrapper section">
+          <div class="section-heading">
+            <p class="eyebrow">Servicios</p>
+            <h2>Soluciones modulares para cada etapa de tu crecimiento digital</h2>
+            <p class="section-lead">
+              Diseñamos estrategias y ejecutamos con foco en resultados de negocio, no solo entregables
+              técnicos.
+            </p>
+          </div>
+          <div class="service-grid">
+            <article class="service-card">
+              <p class="service-kicker">Build</p>
+              <h3>Desarrollo de productos</h3>
+              <p>Landing pages, plataformas web y APIs enfocadas en performance y conversión.</p>
+              <ul>
+                <li>Arquitectura frontend y backend</li>
+                <li>Integraciones con CRM y pagos</li>
+                <li>Medición de eventos y embudos</li>
+              </ul>
+            </article>
+            <article class="service-card">
+              <p class="service-kicker">Delivery</p>
+              <h3>Gestión de proyectos</h3>
+              <p>Planificacion clara, seguimiento visible y entregables con impacto en negocio.</p>
+              <ul>
+                <li>Roadmap por fases</li>
+                <li>Ritmo semanal con reportes</li>
+                <li>Control de riesgo y alcance</li>
+              </ul>
+            </article>
+            <article class="service-card">
+              <p class="service-kicker">Growth</p>
+              <h3>Marketing y automatización</h3>
+              <p>Captación de leads y mejora de conversión con ejecución orientada a datos.</p>
+              <ul>
+                <li>Campanas y funnels</li>
+                <li>Email journeys</li>
+                <li>Analitica accionable</li>
+              </ul>
+            </article>
+            <article class="service-card">
+              <p class="service-kicker">Cloud</p>
+              <h3>Cloud y DevOps</h3>
+              <p>Infraestructura moderna, despliegues continuos y entornos seguros.</p>
+              <ul>
+                <li>Entornos dev, staging y prod</li>
+                <li>CI/CD y monitoreo</li>
+                <li>Costos cloud optimizados</li>
+              </ul>
+            </article>
+            <article class="service-card">
+              <p class="service-kicker">Quality</p>
+              <h3>QA y calidad de producto</h3>
+              <p>Pruebas funcionales y técnicas para reducir bugs en producción.</p>
+              <ul>
+                <li>Estrategia QA por riesgo</li>
+                <li>Automatizacion de pruebas clave</li>
+                <li>Checklists de release</li>
+              </ul>
+            </article>
+          </div>
+        </div>
       </section>
 
-      <section class="lead">
-        <h2>Cuentanos tu proyecto</h2>
-        <p>Respondemos en menos de 24 horas habiles.</p>
-
-        <form id="lead-form">
-          <label>
-            Nombre
-            <input name="name" type="text" required />
-          </label>
-
-          <label>
-            Correo
-            <input name="email" type="email" required />
-          </label>
-
-          <label>
-            Servicio
-            <select name="service" required>
-              <option value="">Selecciona un servicio</option>
-              <option value="desarrollo">Desarrollo</option>
-              <option value="gestion-proyectos">Gestion de proyectos</option>
-              <option value="marketing">Marketing</option>
-              <option value="cloud">Cloud</option>
-              <option value="qa">QA</option>
-            </select>
-          </label>
-
-          <label>
-            Mensaje
-            <textarea name="message" required></textarea>
-          </label>
-
-          <label class="hidden-field" aria-hidden="true">
-            Empresa
-            <input name="company" type="text" autocomplete="off" tabindex="-1" />
-          </label>
-
-          <input type="hidden" name="submittedAt" value={Date.now().toString()} />
-
-          <button type="submit">Enviar</button>
-          <p class="status" id="status"></p>
-        </form>
+      <section id="proceso" class="section-block tone-b reveal">
+        <div class="wrapper section">
+          <div class="section-heading">
+            <p class="eyebrow">Metodo de trabajo</p>
+            <h2>Un proceso simple, medible y orientado a resultados</h2>
+            <p class="section-lead">
+              Transparencia total, decisiones rápidas y entregas iterativas para sostener crecimiento.
+            </p>
+          </div>
+          <div class="timeline">
+            <article>
+              <span>01</span>
+              <h3>Discovery</h3>
+              <p>Entendemos objetivos, restricciones y oportunidades para definir una estrategia solida.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Plan de ejecucion</h3>
+              <p>Definimos alcance por fases, stack técnico y prioridades de negocio.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Implementacion</h3>
+              <p>Construimos con entregas iterativas, feedback continuo y foco en calidad.</p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3>Escalado</h3>
+              <p>Optimizamos conversión, rendimiento y operaciones para sostener crecimiento.</p>
+            </article>
+          </div>
+        </div>
       </section>
+
+      <section id="resultados" class="section-block tone-c reveal">
+        <div class="wrapper section">
+          <div class="results-grid">
+            <article>
+              <p class="result-label">Operacion</p>
+              <p class="value">+120</p>
+              <h3>Sprints ejecutados</h3>
+              <span>Con equipos de producto y marketing en distintas industrias.</span>
+            </article>
+            <article>
+              <p class="result-label">Eficiencia</p>
+              <p class="value">98%</p>
+              <h3>Entregas a tiempo</h3>
+              <span>Priorización clara y seguimiento semanal de hitos.</span>
+            </article>
+            <article>
+              <p class="result-label">Atencion</p>
+              <p class="value">24h</p>
+              <h3>Tiempo de respuesta</h3>
+              <span>Atención directa para desbloquear decisiones y avanzar rápido.</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="section-block tone-a reveal">
+        <div class="wrapper section">
+          <div class="section-heading">
+            <p class="eyebrow">Preguntas frecuentes</p>
+            <h2>Resolvemos dudas antes de iniciar</h2>
+            <p class="section-lead">
+              Si necesitas una solución personalizada, adaptamos equipo, alcance y roadmap a tu contexto.
+            </p>
+          </div>
+          <div class="faq-grid">
+            <article>
+              <h3>¿Qué tipo de proyectos toman?</h3>
+              <p>Desde landing pages y MVPs hasta optimización de operaciones digitales y cloud.</p>
+            </article>
+            <article>
+              <h3>¿Trabajan con equipos internos?</h3>
+              <p>Sí. Nos integramos con tu equipo para acelerar sin fricción ni sobrecarga.</p>
+            </article>
+            <article>
+              <h3>¿Cómo miden el avance?</h3>
+              <p>Definimos KPIs y entregables por sprint con visibilidad total del estado del proyecto.</p>
+            </article>
+            <article>
+              <h3>¿Cuánto tarda iniciar?</h3>
+              <p>Podemos iniciar discovery en menos de 5 días hábiles luego del alineamiento inicial.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" class="section-block tone-b reveal">
+        <div class="wrapper section">
+          <div class="lead">
+            <div class="lead-copy">
+              <p class="eyebrow">Hablemos de tu proyecto</p>
+              <h2>Convierte tus objetivos en una hoja de ruta accionable</h2>
+              <p>Te respondemos en menos de 24 horas hábiles con una propuesta inicial.</p>
+            </div>
+
+            <form id="lead-form">
+              <label>
+                Nombre
+                <input name="name" type="text" required />
+              </label>
+
+              <label>
+                Correo
+                <input name="email" type="email" required />
+              </label>
+
+              <label>
+                Servicio
+                <select name="service" required>
+                  <option value="">Selecciona un servicio</option>
+                  <option value="desarrollo">Desarrollo</option>
+                  <option value="gestion-proyectos">Gestion de proyectos</option>
+                  <option value="marketing">Marketing</option>
+                  <option value="cloud">Cloud</option>
+                  <option value="qa">QA</option>
+                </select>
+              </label>
+
+              <label>
+                Mensaje
+                <textarea name="message" required></textarea>
+              </label>
+
+              <label class="hidden-field" aria-hidden="true">
+                Empresa
+                <input name="company" type="text" autocomplete="off" tabindex="-1" />
+              </label>
+
+              <input type="hidden" name="submittedAt" id="submittedAt" value="" />
+
+              <button type="submit" class="btn btn-primary">Enviar consulta</button>
+              <p class="status" id="status"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer wrapper">
+        <p>IntelliaWorks - Desarrollo, cloud, marketing y QA para equipos en crecimiento.</p>
+      </footer>
     </main>
 
     <script>
+      const menuToggle = document.querySelector("#menu-toggle");
+      const nav = document.querySelector("#main-nav");
+      const navLinks = document.querySelectorAll("#main-nav a");
+
+      menuToggle?.addEventListener("click", () => {
+        nav?.classList.toggle("open");
+      });
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => nav?.classList.remove("open"));
+      });
+
+      const revealNodes = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.18 }
+      );
+
+      revealNodes.forEach((node) => observer.observe(node));
+
       const form = document.querySelector("#lead-form");
       const status = document.querySelector("#status");
+      const submittedAtInput = document.querySelector("#submittedAt");
 
       form?.addEventListener("submit", async (event) => {
         event.preventDefault();
         status.textContent = "Enviando...";
+
+        if (submittedAtInput) {
+          submittedAtInput.value = Date.now().toString();
+        }
 
         const data = new FormData(form);
         const payload = Object.fromEntries(data.entries());

@@ -3,6 +3,8 @@ import netlify from "@astrojs/netlify";
 
 export default defineConfig({
   output: "server",
-  adapter: netlify(),
+  adapter: netlify({
+    edgeMiddleware: false
+  }),
   site: "https://example.netlify.app"
 });
