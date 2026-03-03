@@ -1,0 +1,142 @@
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --ink: #12212f;
+  --muted: #4c6577;
+  --brand: #007a7a;
+  --brand-dark: #005f5f;
+  --line: #d8e0e8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%, #e4f2ff, transparent 35%),
+    radial-gradient(circle at 90% 20%, #d5f5f2, transparent 40%),
+    var(--bg);
+}
+
+.wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.hero {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.hero h1 {
+  margin: 0;
+  line-height: 1.05;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+}
+
+.hero p {
+  max-width: 760px;
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chips span {
+  padding: 0.4rem 0.7rem;
+  background: #e8f6f6;
+  color: var(--brand-dark);
+  border: 1px solid #c6e9e8;
+  border-radius: 999px;
+  font-size: 0.86rem;
+}
+
+.grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.card h3 {
+  margin: 0 0 0.5rem;
+}
+
+.lead {
+  margin-top: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.2rem;
+}
+
+form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.7rem;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+button {
+  width: fit-content;
+  border: 0;
+  border-radius: 10px;
+  background: var(--brand);
+  color: white;
+  font-weight: 700;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--brand-dark);
+}
+
+.status {
+  min-height: 1.2rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.hidden-field {
+  display: none;
+}

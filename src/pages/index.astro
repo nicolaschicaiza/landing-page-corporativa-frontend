@@ -1,0 +1,124 @@
+---
+import "../styles/global.css";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>IntelliaWorks | Servicios de tecnologia freelance</title>
+    <meta
+      name="description"
+      content="Desarrollo, gestion de proyectos, marketing, cloud y QA para equipos que quieren avanzar rapido."
+    />
+  </head>
+  <body>
+    <main class="wrapper">
+      <section class="hero">
+        <p>INTELLIAWORKS</p>
+        <h1>Tecnologia freelance para convertir ideas en resultados</h1>
+        <p>
+          Te ayudamos con desarrollo, gestion de proyectos, marketing, cloud y QA para lanzar y escalar
+          productos digitales.
+        </p>
+        <div class="chips">
+          <span>Desarrollo</span>
+          <span>Gestion de proyectos</span>
+          <span>Marketing</span>
+          <span>Cloud</span>
+          <span>QA</span>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h3>Desarrollo</h3>
+          <p>Landing pages, apps web y APIs enfocadas en negocio.</p>
+        </article>
+        <article class="card">
+          <h3>Gestion de proyectos</h3>
+          <p>Planificacion, seguimiento y entrega continua de valor.</p>
+        </article>
+        <article class="card">
+          <h3>Marketing tecnologico</h3>
+          <p>Embudos, automatizacion y analitica para mas conversion.</p>
+        </article>
+      </section>
+
+      <section class="lead">
+        <h2>Cuéntanos tu proyecto</h2>
+        <p>Respondemos en menos de 24 horas habiles.</p>
+
+        <form id="lead-form">
+          <label>
+            Nombre
+            <input name="name" type="text" required />
+          </label>
+
+          <label>
+            Correo
+            <input name="email" type="email" required />
+          </label>
+
+          <label>
+            Servicio
+            <select name="service" required>
+              <option value="">Selecciona un servicio</option>
+              <option value="desarrollo">Desarrollo</option>
+              <option value="gestion-proyectos">Gestion de proyectos</option>
+              <option value="marketing">Marketing</option>
+              <option value="cloud">Cloud</option>
+              <option value="qa">QA</option>
+            </select>
+          </label>
+
+          <label>
+            Mensaje
+            <textarea name="message" required></textarea>
+          </label>
+
+          <label class="hidden-field" aria-hidden="true">
+            Empresa
+            <input name="company" type="text" autocomplete="off" tabindex="-1" />
+          </label>
+
+          <input type="hidden" name="submittedAt" value={Date.now().toString()} />
+
+          <button type="submit">Enviar</button>
+          <p class="status" id="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      const form = document.querySelector("#lead-form");
+      const status = document.querySelector("#status");
+
+      form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        status.textContent = "Enviando...";
+
+        const data = new FormData(form);
+        const payload = Object.fromEntries(data.entries());
+
+        try {
+          const response = await fetch("/.netlify/functions/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          if (!response.ok || !result.ok) {
+            throw new Error(result.message || "No se pudo enviar el formulario");
+          }
+
+          form.reset();
+          status.textContent = "Gracias. Te contactaremos pronto.";
+        } catch (error) {
+          status.textContent = error instanceof Error ? error.message : "Error inesperado";
+        }
+      });
+    </script>
+  </body>
+</html>
