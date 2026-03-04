@@ -6,8 +6,8 @@
   --ink: #1c2430;
   --muted: #5d6878;
   --line: #d9d3c8;
-  --brand: #0a7ea4;
-  --brand-strong: #075f7c;
+  --brand: #1133ee;
+  --brand-strong: #0022cc;
   --accent: #dc6f3d;
   --radius: 18px;
   --shadow: 0 18px 42px rgba(26, 34, 46, 0.12);
@@ -82,17 +82,13 @@ a {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  font-size: 0.9rem;
+  text-decoration: none;
 }
 
-.brand-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: linear-gradient(130deg, var(--brand), #1ca4cc);
+.brand-logo {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .main-nav {
@@ -243,13 +239,13 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(140deg, var(--brand), #25a7cf);
+  background: linear-gradient(140deg, var(--brand), #4466ff);
   color: #f7fdff;
-  box-shadow: 0 10px 24px rgba(13, 107, 138, 0.26);
+  box-shadow: 0 10px 24px rgba(17, 51, 238, 0.26);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(140deg, var(--brand-strong), #1e93b7);
+  background: linear-gradient(140deg, var(--brand-strong), #3355ee);
 }
 
 .btn-ghost {
@@ -597,11 +593,57 @@ textarea:focus {
   padding: 2rem 0 2.8rem;
 }
 
-.site-footer p {
-  margin: 0;
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
   border-top: 1px solid #d9d2c8;
-  padding-top: 0.9rem;
+  padding-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: inline-flex;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.footer-brand:hover {
+  opacity: 1;
+}
+
+.footer-logo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.footer-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: var(--ink);
+}
+
+.footer-copy {
+  margin: 0.75rem 0 0;
   color: #617084;
+  font-size: 0.875rem;
+  text-align: center;
+  width: 100%;
 }
 
 .reveal {
@@ -698,4 +740,82 @@ textarea:focus {
     opacity: 1;
     transform: none;
   }
+}
+
+/* ── Scroll FAB (subir al inicio) ─────────────────────── */
+.scroll-fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--brand);
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-fab.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-fab:hover {
+  background: var(--brand-strong);
+}
+
+.scroll-fab i,
+.scroll-fab svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* ── Botón bajar en header ────────────────────────────── */
+.scroll-down-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brand);
+  color: var(--brand);
+  font-size: 1.1rem;
+  text-decoration: none;
+  flex-shrink: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+}
+
+.scroll-down-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-down-btn:hover {
+  background: var(--brand);
+  color: #fff;
+}
+
+.scroll-down-btn i,
+.scroll-down-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
 }

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import logo from "../images/logo.png";
 ---
 
 <html lang="es">
@@ -19,8 +20,7 @@ import "../styles/global.css";
     <header class="site-header">
       <div class="wrapper header-inner">
         <a class="brand" href="#inicio">
-          <span class="brand-dot"></span>
-          <span>INTELLIAWORKS</span>
+          <img src={logo.src} alt="IntelliaWorks" class="brand-logo" width="160" height="36" />
         </a>
 
         <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Abrir menu">
@@ -35,8 +35,16 @@ import "../styles/global.css";
           <a href="#faq">FAQ</a>
           <a href="#contacto" class="cta-small">Hablemos</a>
         </nav>
+        <a href="#servicios" id="scroll-down" class="scroll-down-btn" aria-label="Ver contenido" title="Ver contenido">
+          <i data-lucide="chevron-down"></i>
+        </a>
       </div>
     </header>
+
+    <!-- Botón flotante: subir al inicio -->
+    <button id="scroll-top" class="scroll-fab" aria-label="Volver al inicio" title="Volver al inicio">
+      <i data-lucide="chevron-up"></i>
+    </button>
 
     <main>
       <section id="inicio" class="section-block tone-hero reveal">
@@ -310,11 +318,49 @@ import "../styles/global.css";
       </section>
 
       <footer class="site-footer wrapper">
-        <p>IntelliaWorks - Desarrollo, cloud, marketing y QA para equipos en crecimiento.</p>
+        <div class="footer-inner">
+          <a href="#inicio" class="footer-brand">
+            <img src={logo.src} alt="IntelliaWorks" class="footer-logo" width="140" height="32" />
+          </a>
+          <nav class="footer-nav">
+            <a href="#servicios">Servicios</a>
+            <a href="#proceso">Proceso</a>
+            <a href="#resultados">Resultados</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contacto" class="cta-small">Hablemos</a>
+          </nav>
+        </div>
+        <p class="footer-copy">&copy; {new Date().getFullYear()} IntelliaWorks. Todos los derechos reservados.</p>
       </footer>
     </main>
 
     <script>
+      // --- Scroll down / scroll top ---
+      const scrollTopBtn = document.querySelector("#scroll-top") as HTMLButtonElement;
+      const scrollDownBtn = document.querySelector("#scroll-down") as HTMLAnchorElement;
+
+      scrollTopBtn?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      const inicioSection = document.querySelector("#inicio");
+
+      const scrollObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            scrollTopBtn?.classList.remove("visible");
+            scrollDownBtn?.classList.add("visible");
+          } else {
+            scrollTopBtn?.classList.add("visible");
+            scrollDownBtn?.classList.remove("visible");
+          }
+        },
+        { threshold: 0.2 }
+      );
+
+      if (inicioSection) scrollObserver.observe(inicioSection);
+      // --- fin scroll ---
+
       const menuToggle = document.querySelector("#menu-toggle");
       const nav = document.querySelector("#main-nav");
       const navLinks = document.querySelectorAll("#main-nav a");
@@ -375,6 +421,11 @@ import "../styles/global.css";
           status.textContent = error instanceof Error ? error.message : "Error inesperado";
         }
       });
+    </script>
+
+    <script>
+      import { createIcons, ChevronDown, ChevronUp } from "lucide";
+      createIcons({ icons: { ChevronDown, ChevronUp } });
     </script>
   </body>
 </html>
