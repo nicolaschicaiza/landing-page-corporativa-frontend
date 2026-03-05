@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import logo from "../images/logo.png";
+import heroIllustration from "../images/illustrations/hero-services-storyset.svg";
 ---
 
 <html lang="es">
@@ -23,7 +24,7 @@ import logo from "../images/logo.png";
           <img src={logo.src} alt="IntelliaWorks" class="brand-logo" width="160" height="36" />
         </a>
 
-        <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Abrir menu">
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Abrir menú">
           <span></span>
           <span></span>
         </button>
@@ -59,52 +60,24 @@ import logo from "../images/logo.png";
             </div>
             <div class="hero-points">
               <span>Discovery estratégico</span>
-              <span>Entrega iterativa</span>
-              <span>Arquitectura escalable</span>
-            </div>
-            <div class="trust-row">
-              <span>Entrega continua</span>
-              <span>Arquitectura escalable</span>
-              <span>QA desde el inicio</span>
+              <span>Ejecución ágil</span>
+              <span>Calidad desde el inicio</span>
             </div>
           </div>
 
           <aside class="hero-showcase">
-            <div class="showcase-window">
-              <div class="showcase-topbar">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-
-              <article class="showcase-block">
-                <p class="panel-title">Servicio recomendado</p>
-                <h3>Landing + Embudo + Automatización</h3>
-                <p>
-                  Diseño de adquisición completo para convertir visitas en oportunidades comerciales reales.
-                </p>
-              </article>
-
-              <article class="showcase-block">
-                <p class="panel-title">Plan 30-60-90</p>
-                <ul>
-                  <li><strong>30 días:</strong> base técnica y tracking</li>
-                  <li><strong>60 días:</strong> automatizaciones y pruebas A/B</li>
-                  <li><strong>90 días:</strong> optimización por métricas</li>
-                </ul>
-              </article>
-
-              <div class="showcase-metrics">
-                <article>
-                  <p>+34%</p>
-                  <span>conversión media</span>
-                </article>
-                <article>
-                  <p>24h</p>
-                  <span>respuesta inicial</span>
-                </article>
-              </div>
-            </div>
+            <figure class="hero-illustration">
+              <img
+                src={heroIllustration.src}
+                alt="Ilustración de equipo planificando soluciones digitales"
+                loading="eager"
+                decoding="async"
+              />
+            </figure>
+            <p class="hero-illustration-caption">Estrategia y ejecución para acelerar resultados digitales.</p>
+            <p class="hero-illustration-credit">
+              Ilustración por <a href="https://storyset.com/technology" target="_blank" rel="noopener noreferrer">Storyset</a>
+            </p>
           </aside>
         </div>
         <div class="hero-scroll-cue">
@@ -138,7 +111,7 @@ import logo from "../images/logo.png";
             <article class="service-card">
               <p class="service-kicker">Delivery</p>
               <h3>Gestión de proyectos</h3>
-              <p>Planificacion clara, seguimiento visible y entregables con impacto en negocio.</p>
+              <p>Planificación clara, seguimiento visible y entregables con impacto en negocio.</p>
               <ul>
                 <li>Roadmap por fases</li>
                 <li>Ritmo semanal con reportes</li>
@@ -150,9 +123,9 @@ import logo from "../images/logo.png";
               <h3>Marketing y automatización</h3>
               <p>Captación de leads y mejora de conversión con ejecución orientada a datos.</p>
               <ul>
-                <li>Campanas y funnels</li>
+                <li>Campañas y funnels</li>
                 <li>Email journeys</li>
-                <li>Analitica accionable</li>
+                <li>Analítica accionable</li>
               </ul>
             </article>
             <article class="service-card">
@@ -171,7 +144,7 @@ import logo from "../images/logo.png";
               <p>Pruebas funcionales y técnicas para reducir bugs en producción.</p>
               <ul>
                 <li>Estrategia QA por riesgo</li>
-                <li>Automatizacion de pruebas clave</li>
+                <li>Automatización de pruebas clave</li>
                 <li>Checklists de release</li>
               </ul>
             </article>
@@ -182,7 +155,7 @@ import logo from "../images/logo.png";
       <section id="proceso" class="section-block tone-b reveal">
         <div class="wrapper section">
           <div class="section-heading">
-            <p class="eyebrow">Metodo de trabajo</p>
+            <p class="eyebrow">Método de trabajo</p>
             <h2>Un proceso simple, medible y orientado a resultados</h2>
             <p class="section-lead">
               Transparencia total, decisiones rápidas y entregas iterativas para sostener crecimiento.
@@ -192,16 +165,16 @@ import logo from "../images/logo.png";
             <article>
               <span>01</span>
               <h3>Discovery</h3>
-              <p>Entendemos objetivos, restricciones y oportunidades para definir una estrategia solida.</p>
+              <p>Entendemos objetivos, restricciones y oportunidades para definir una estrategia sólida.</p>
             </article>
             <article>
               <span>02</span>
-              <h3>Plan de ejecucion</h3>
+              <h3>Plan de ejecución</h3>
               <p>Definimos alcance por fases, stack técnico y prioridades de negocio.</p>
             </article>
             <article>
               <span>03</span>
-              <h3>Implementacion</h3>
+              <h3>Implementación</h3>
               <p>Construimos con entregas iterativas, feedback continuo y foco en calidad.</p>
             </article>
             <article>
@@ -217,7 +190,7 @@ import logo from "../images/logo.png";
         <div class="wrapper section">
           <div class="results-grid">
             <article>
-              <p class="result-label">Operacion</p>
+              <p class="result-label">Operación</p>
               <p class="value">+120</p>
               <h3>Sprints ejecutados</h3>
               <span>Con equipos de producto y marketing en distintas industrias.</span>
@@ -229,7 +202,7 @@ import logo from "../images/logo.png";
               <span>Priorización clara y seguimiento semanal de hitos.</span>
             </article>
             <article>
-              <p class="result-label">Atencion</p>
+              <p class="result-label">Atención</p>
               <p class="value">24h</p>
               <h3>Tiempo de respuesta</h3>
               <span>Atención directa para desbloquear decisiones y avanzar rápido.</span>
@@ -293,7 +266,7 @@ import logo from "../images/logo.png";
                 <select name="service" required>
                   <option value="">Selecciona un servicio</option>
                   <option value="desarrollo">Desarrollo</option>
-                  <option value="gestion-proyectos">Gestion de proyectos</option>
+                  <option value="gestion-proyectos">Gestión de proyectos</option>
                   <option value="marketing">Marketing</option>
                   <option value="cloud">Cloud</option>
                   <option value="qa">QA</option>
