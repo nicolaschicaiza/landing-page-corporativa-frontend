@@ -35,9 +35,6 @@ import logo from "../images/logo.png";
           <a href="#faq">FAQ</a>
           <a href="#contacto" class="cta-small">Hablemos</a>
         </nav>
-        <a href="#servicios" id="scroll-down" class="scroll-down-btn" aria-label="Ver contenido" title="Ver contenido">
-          <i data-lucide="chevron-down"></i>
-        </a>
       </div>
     </header>
 
@@ -109,6 +106,11 @@ import logo from "../images/logo.png";
               </div>
             </div>
           </aside>
+        </div>
+        <div class="hero-scroll-cue">
+          <a href="#servicios" id="scroll-down" class="scroll-down-btn" aria-label="Deslizar hacia servicios" title="Deslizar hacia servicios">
+            <i data-lucide="chevron-down"></i>
+          </a>
         </div>
       </section>
 
@@ -339,26 +341,32 @@ import logo from "../images/logo.png";
       const scrollTopBtn = document.querySelector("#scroll-top") as HTMLButtonElement;
       const scrollDownBtn = document.querySelector("#scroll-down") as HTMLAnchorElement;
 
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
+      if (!window.location.hash) {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }
+
       scrollTopBtn?.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
-      const inicioSection = document.querySelector("#inicio");
+      const updateScrollButtons = () => {
+        const showDown = window.scrollY < window.innerHeight * 0.45;
+        scrollDownBtn?.classList.toggle("visible", showDown);
+        scrollTopBtn?.classList.toggle("visible", !showDown);
+      };
 
-      const scrollObserver = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            scrollTopBtn?.classList.remove("visible");
-            scrollDownBtn?.classList.add("visible");
-          } else {
-            scrollTopBtn?.classList.add("visible");
-            scrollDownBtn?.classList.remove("visible");
-          }
-        },
-        { threshold: 0.2 }
-      );
-
-      if (inicioSection) scrollObserver.observe(inicioSection);
+      updateScrollButtons();
+      window.addEventListener("scroll", updateScrollButtons, { passive: true });
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted && !window.location.hash) {
+          window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        }
+        updateScrollButtons();
+      });
       // --- fin scroll ---
 
       const menuToggle = document.querySelector("#menu-toggle");
@@ -424,8 +432,8 @@ import logo from "../images/logo.png";
     </script>
 
     <script>
-      import { createIcons, ChevronDown, ChevronUp } from "lucide";
-      createIcons({ icons: { ChevronDown, ChevronUp } });
+      import { createIcons, ChevronUp, ChevronDown } from "lucide";
+      createIcons({ icons: { ChevronUp, ChevronDown } });
     </script>
   </body>
 </html>

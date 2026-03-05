@@ -1,4 +1,5 @@
 :root {
+  --header-height: 74px;
   --bg: #f5f3ef;
   --bg-soft: #ece7de;
   --paper: #fffdf8;
@@ -143,6 +144,8 @@ a {
 }
 
 .tone-hero {
+  position: relative;
+  min-height: calc(100svh - var(--header-height));
   background:
     radial-gradient(circle at 18% 16%, rgba(129, 200, 222, 0.2), transparent 34%),
     radial-gradient(circle at 84% 18%, rgba(243, 176, 148, 0.18), transparent 36%),
@@ -727,6 +730,10 @@ textarea:focus {
   .timeline {
     grid-template-columns: 1fr;
   }
+
+  .hero-scroll-cue {
+    bottom: 0.85rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -783,39 +790,56 @@ textarea:focus {
   display: block;
 }
 
-/* ── Botón bajar en header ────────────────────────────── */
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+/* ── Botón bajar sobre el hero ─────────────────────────── */
 .scroll-down-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid var(--brand);
-  color: var(--brand);
-  font-size: 1.1rem;
+  width: 52px;
+  height: 52px;
+  border: none;
+  background: transparent;
+  color: var(--brand-strong);
+  font-size: 1rem;
   text-decoration: none;
-  flex-shrink: 0;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-6px);
-  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
 }
 
 .scroll-down-btn.visible {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+  animation: heroScrollBounce 1.8s ease-in-out infinite;
 }
 
 .scroll-down-btn:hover {
-  background: var(--brand);
-  color: #fff;
+  color: var(--brand);
 }
 
 .scroll-down-btn i,
 .scroll-down-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 32px;
+  height: 32px;
   display: block;
+}
+
+@keyframes heroScrollBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
 }
