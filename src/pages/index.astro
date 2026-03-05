@@ -354,7 +354,31 @@ import heroIllustration from "../images/illustrations/hero-services-storyset.svg
         link.addEventListener("click", () => nav?.classList.remove("open"));
       });
 
-      const revealNodes = document.querySelectorAll(".reveal");
+      const revealNodes = document.querySelectorAll<HTMLElement>(".reveal");
+      const revealItemGroups = [
+        ".hero-copy > *",
+        ".hero-showcase > *",
+        ".section-heading > *",
+        ".service-card",
+        ".timeline article",
+        ".results-grid article",
+        ".faq-grid article",
+        ".lead-copy > *",
+        "#lead-form > *"
+      ];
+
+      revealNodes.forEach((section) => {
+        const stagedItems = revealItemGroups.flatMap((selector) =>
+          Array.from(section.querySelectorAll<HTMLElement>(selector))
+        );
+        const uniqueItems = Array.from(new Set(stagedItems));
+
+        uniqueItems.forEach((item, index) => {
+          item.classList.add("reveal-item");
+          item.style.setProperty("--reveal-delay", `${Math.min(index * 120, 1400)}ms`);
+        });
+      });
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -364,7 +388,7 @@ import heroIllustration from "../images/illustrations/hero-services-storyset.svg
             }
           });
         },
-        { threshold: 0.18 }
+        { threshold: 0.22, rootMargin: "0px 0px -12% 0px" }
       );
 
       revealNodes.forEach((node) => observer.observe(node));
