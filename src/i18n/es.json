@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "title": "IntelliaWorks | Servicios de tecnología freelance",
+    "description": "Desarrollo, gestión de proyectos, marketing, cloud y QA para equipos que buscan crecer con tecnología."
+  },
+  "nav": {
+    "services": "Servicios",
+    "process": "Proceso",
+    "results": "Resultados",
+    "faq": "FAQ",
+    "cta": "Hablemos",
+    "menuLabel": "Abrir menú"
+  },
+  "hero": {
+    "eyebrow": "Consultoría y ejecución digital",
+    "headline": "Construimos experiencias digitales que venden y escalan.",
+    "lead": "Combinamos desarrollo, marketing, cloud y QA para ayudarte a lanzar más rápido, convertir mejor y tomar decisiones con datos.",
+    "cta": "Solicitar propuesta",
+    "point1": "Discovery estratégico",
+    "point2": "Ejecución ágil",
+    "point3": "Calidad desde el inicio",
+    "caption": "Estrategia y ejecución para acelerar resultados digitales.",
+    "creditHtml": "Ilustración por <a href=\"https://storyset.com/technology\" target=\"_blank\" rel=\"noopener noreferrer\">Storyset</a>"
+  },
+  "services": {
+    "eyebrow": "Servicios",
+    "headline": "Soluciones modulares para cada etapa de tu crecimiento digital",
+    "lead": "Diseñamos estrategias y ejecutamos con foco en resultados de negocio, no solo entregables técnicos.",
+    "card1": {
+      "kicker": "Build",
+      "title": "Desarrollo de productos",
+      "desc": "Landing pages, plataformas web y APIs enfocadas en performance y conversión.",
+      "li1": "Arquitectura frontend y backend",
+      "li2": "Integraciones con CRM y pagos",
+      "li3": "Medición de eventos y embudos"
+    },
+    "card2": {
+      "kicker": "Delivery",
+      "title": "Gestión de proyectos",
+      "desc": "Planificación clara, seguimiento visible y entregables con impacto en negocio.",
+      "li1": "Roadmap por fases",
+      "li2": "Ritmo semanal con reportes",
+      "li3": "Control de riesgo y alcance"
+    },
+    "card3": {
+      "kicker": "Growth",
+      "title": "Marketing y automatización",
+      "desc": "Captación de leads y mejora de conversión con ejecución orientada a datos.",
+      "li1": "Campañas y funnels",
+      "li2": "Email journeys",
+      "li3": "Analítica accionable"
+    },
+    "card4": {
+      "kicker": "Cloud",
+      "title": "Cloud y DevOps",
+      "desc": "Infraestructura moderna, despliegues continuos y entornos seguros.",
+      "li1": "Entornos dev, staging y prod",
+      "li2": "CI/CD y monitoreo",
+      "li3": "Costos cloud optimizados"
+    },
+    "card5": {
+      "kicker": "Quality",
+      "title": "QA y calidad de producto",
+      "desc": "Pruebas funcionales y técnicas para reducir bugs en producción.",
+      "li1": "Estrategia QA por riesgo",
+      "li2": "Automatización de pruebas clave",
+      "li3": "Checklists de release"
+    }
+  },
+  "process": {
+    "eyebrow": "Método de trabajo",
+    "headline": "Un proceso simple, medible y orientado a resultados",
+    "lead": "Transparencia total, decisiones rápidas y entregas iterativas para sostener crecimiento.",
+    "step1": {
+      "title": "Discovery",
+      "desc": "Entendemos objetivos, restricciones y oportunidades para definir una estrategia sólida."
+    },
+    "step2": {
+      "title": "Plan de ejecución",
+      "desc": "Definimos alcance por fases, stack técnico y prioridades de negocio."
+    },
+    "step3": {
+      "title": "Implementación",
+      "desc": "Construimos con entregas iterativas, feedback continuo y foco en calidad."
+    },
+    "step4": {
+      "title": "Escalado",
+      "desc": "Optimizamos conversión, rendimiento y operaciones para sostener crecimiento."
+    }
+  },
+  "results": {
+    "article1": {
+      "label": "Operación",
+      "value": "+120",
+      "title": "Sprints ejecutados",
+      "desc": "Con equipos de producto y marketing en distintas industrias."
+    },
+    "article2": {
+      "label": "Eficiencia",
+      "value": "98%",
+      "title": "Entregas a tiempo",
+      "desc": "Priorización clara y seguimiento semanal de hitos."
+    },
+    "article3": {
+      "label": "Atención",
+      "value": "24h",
+      "title": "Tiempo de respuesta",
+      "desc": "Atención directa para desbloquear decisiones y avanzar rápido."
+    }
+  },
+  "faq": {
+    "eyebrow": "Preguntas frecuentes",
+    "headline": "Resolvemos dudas antes de iniciar",
+    "lead": "Si necesitas una solución personalizada, adaptamos equipo, alcance y roadmap a tu contexto.",
+    "q1": {
+      "title": "¿Qué tipo de proyectos toman?",
+      "desc": "Desde landing pages y MVPs hasta optimización de operaciones digitales y cloud."
+    },
+    "q2": {
+      "title": "¿Trabajan con equipos internos?",
+      "desc": "Sí. Nos integramos con tu equipo para acelerar sin fricción ni sobrecarga."
+    },
+    "q3": {
+      "title": "¿Cómo miden el avance?",
+      "desc": "Definimos KPIs y entregables por sprint con visibilidad total del estado del proyecto."
+    },
+    "q4": {
+      "title": "¿Cuánto tarda iniciar?",
+      "desc": "Podemos iniciar discovery en menos de 5 días hábiles luego del alineamiento inicial."
+    }
+  },
+  "contact": {
+    "eyebrow": "Hablemos de tu proyecto",
+    "headline": "Convierte tus objetivos en una hoja de ruta accionable",
+    "lead": "Te respondemos en menos de 24 horas hábiles con una propuesta inicial.",
+    "trust": {
+      "lead": "Respondemos en menos de 24h con un plan claro, sin compromisos y sin letra chica.",
+      "point1": "Respuesta en menos de 24 horas hábiles",
+      "point2": "Garantía de 30 días incluida",
+      "point3": "Sin contratos eternos · decides cuándo parar",
+      "point4": "Trato directo, sin intermediarios",
+      "emailCta": "O escríbenos directamente"
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "headline": "Preguntas frecuentes",
+      "lead": "Todo lo que necesitas saber antes de dar el primer paso.",
+      "q1": {
+        "title": "¿Cuáles son las modalidades de pago?",
+        "desc": "Trabajamos con pagos por hitos según el alcance acordado. Generalmente se divide en un pago inicial al arrancar y pagos parciales al completar cada fase. Aceptamos transferencia bancaria y otros medios según el país del cliente."
+      },
+      "q2": {
+        "title": "¿Cuánto tiempo toma completar un proyecto?",
+        "desc": "Depende del alcance. Una landing page puede estar lista en 1–2 semanas. Un producto web completo puede tomar entre 4 y 12 semanas. En el discovery te entregamos un cronograma detallado por fases."
+      },
+      "q3": {
+        "title": "¿Qué pasa si necesito agregar más contenido o productos después?",
+        "desc": "Tenemos planes de mantenimiento y expansión. Puedes contratar horas adicionales o un paquete de actualización continua. El costo varía según el volumen y la frecuencia de los cambios."
+      },
+      "q4": {
+        "title": "¿Qué cubre la garantía del proyecto?",
+        "desc": "Incluye corrección de bugs funcionales y ajustes menores durante los 30 días posteriores a la entrega, sin costo adicional. No cubre nuevas funcionalidades ni cambios de alcance fuera de lo acordado."
+      },
+      "q5": {
+        "title": "¿Mi sitio tendrá mantenimiento a largo plazo?",
+        "desc": "Sí. Ofrecemos planes de mantenimiento mensual que incluyen actualizaciones de seguridad, monitoreo de disponibilidad, respaldos regulares y soporte técnico prioritario para asegurar que tu web funcione siempre."
+      }
+    },
+    "form": {
+      "name": "Nombre completo",
+      "namePlaceholder": "¿Cómo te llamas?",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@empresa.com",
+      "service": "¿En qué podemos ayudarte?",
+      "serviceDefault": "Selecciona un servicio",
+      "service1": "Desarrollo web",
+      "service2": "Gestión de proyectos",
+      "service3": "Marketing y automatización",
+      "service4": "Cloud y DevOps",
+      "service5": "QA y calidad",
+      "message": "Cuéntanos sobre tu proyecto",
+      "messagePlaceholder": "Describe brevemente qué quieres construir, mejorar o resolver. Mientras más detalles, mejor podemos orientarte.",
+      "company": "Empresa",
+      "submit": "Enviar consulta",
+      "sending": "Enviando...",
+      "success": "Gracias. Te contactaremos pronto.",
+      "error": "Error inesperado"
+    }
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}
