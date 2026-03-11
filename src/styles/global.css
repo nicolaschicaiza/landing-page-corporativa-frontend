@@ -65,6 +65,14 @@
   font-weight: 600;
 }
 
+/* Active state for the pill "Hablemos" CTA */
+#main-nav a.nav-link.nav-cta.nav-active {
+  border-color: var(--brand);
+  background-color: var(--cta-bg);
+  color: var(--brand);
+  font-weight: 600;
+}
+
 [data-theme="dark"] {
   --bg: #0e1117;
   --bg-soft: #161b25;

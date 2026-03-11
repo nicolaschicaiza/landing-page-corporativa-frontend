@@ -1,0 +1,47 @@
+---
+/**
+ * NavLinks — navegación reutilizable para header y footer.
+ *
+ * Props:
+ *  - variant: 'header' | 'footer'
+ *      'header' → añade clases `nav-link` y atributos `data-section` para el
+ *                 scroll-spy del JS, tamaño 0.95rem.
+ *      'footer' → sin `nav-link` ni `data-section`, tamaño 0.9rem.
+ *
+ * En ambos casos "Hablemos" recibe el estilo pill del footer.
+ */
+interface Props {
+  variant?: "header" | "footer";
+}
+
+const { variant = "header" } = Astro.props;
+
+const isHeader = variant === "header";
+
+const linkSize = isHeader ? "text-[0.95rem]" : "text-[0.9rem]";
+const baseLink = `${isHeader ? "nav-link " : ""}text-[var(--muted)] ${linkSize} hover:text-[var(--ink)] transition-colors duration-200`;
+const ctaLink  = `${isHeader ? "nav-link nav-cta " : ""}border border-[var(--cta-border)] rounded-full px-[0.9rem] py-2 text-[var(--ink)] bg-[var(--cta-bg)] ${linkSize} transition-[border-color,background,color,font-weight] duration-200 hover:border-[var(--brand)]`;
+
+const navItems = [
+  { href: "#servicios",  label: "Servicios",  i18n: "nav.services",  section: "servicios"  },
+  { href: "#proceso",    label: "Proceso",    i18n: "nav.process",   section: "proceso"    },
+  { href: "#resultados", label: "Resultados", i18n: "nav.results",   section: "resultados" },
+  { href: "#faq",        label: "FAQ",        i18n: "nav.faq",       section: "faq"        },
+];
+---
+
+{navItems.map(({ href, label, i18n, section }) => (
+  <a
+    href={href}
+    class={baseLink}
+    data-i18n={i18n}
+    {...(isHeader ? { "data-section": section } : {})}
+  >{label}</a>
+))}
+
+<a
+  href="#contacto"
+  class={ctaLink}
+  data-i18n="nav.cta"
+  {...(isHeader ? { "data-section": "contacto" } : {})}
+>Hablemos</a>

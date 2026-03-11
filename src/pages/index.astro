@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import logo from "../images/logo.png";
 import logoLight from "../images/logo_light.png";
+import NavLinks from "../components/NavLinks.astro";
 import heroIllustration from "../images/illustrations/hero-services-storyset.svg";
 import faqIllustration from "../images/faq.svg";
 import es from "../i18n/es.json";
@@ -42,11 +43,7 @@ const i18n = { es, en };
         </a>
 
         <nav id="main-nav" class="flex items-center gap-5">
-          <a href="#servicios"  class="nav-link text-[var(--muted)] text-[0.95rem] hover:text-[var(--ink)] transition-colors duration-200" data-section="servicios"  data-i18n="nav.services">Servicios</a>
-          <a href="#proceso"    class="nav-link text-[var(--muted)] text-[0.95rem] hover:text-[var(--ink)] transition-colors duration-200" data-section="proceso"    data-i18n="nav.process">Proceso</a>
-          <a href="#resultados" class="nav-link text-[var(--muted)] text-[0.95rem] hover:text-[var(--ink)] transition-colors duration-200" data-section="resultados" data-i18n="nav.results">Resultados</a>
-          <a href="#faq"        class="nav-link text-[var(--muted)] text-[0.95rem] hover:text-[var(--ink)] transition-colors duration-200" data-section="faq"        data-i18n="nav.faq">FAQ</a>
-          <a href="#contacto"   class="nav-link text-[var(--muted)] text-[0.95rem] hover:text-[var(--ink)] transition-colors duration-200" data-section="contacto" data-i18n="nav.cta">Hablemos</a>
+          <NavLinks variant="header" />
         </nav>
 
         <div class="flex items-center gap-2">
@@ -405,11 +402,7 @@ const i18n = { es, en };
             <img src={logoLight.src} alt="IntelliaWorks" class="footer-logo logo-light h-8 w-auto"       width="140" height="32" />
           </a>
           <nav class="flex items-center gap-5 flex-wrap">
-            <a href="#servicios"  class="text-[var(--muted)] text-[0.9rem] hover:text-[var(--ink)] transition-colors duration-200" data-i18n="nav.services">Servicios</a>
-            <a href="#proceso"    class="text-[var(--muted)] text-[0.9rem] hover:text-[var(--ink)] transition-colors duration-200" data-i18n="nav.process">Proceso</a>
-            <a href="#resultados" class="text-[var(--muted)] text-[0.9rem] hover:text-[var(--ink)] transition-colors duration-200" data-i18n="nav.results">Resultados</a>
-            <a href="#faq"        class="text-[var(--muted)] text-[0.9rem] hover:text-[var(--ink)] transition-colors duration-200" data-i18n="nav.faq">FAQ</a>
-            <a href="#contacto"   class="border border-[var(--cta-border)] rounded-full px-[0.9rem] py-2 text-[var(--ink)] bg-[var(--cta-bg)] text-[0.9rem] transition-[border-color,background] duration-200 hover:border-[var(--brand)]" data-i18n="nav.cta">Hablemos</a>
+            <NavLinks variant="footer" />
           </nav>
         </div>
         <p class="mt-3 text-[var(--muted)] text-[0.875rem] text-center w-full m-0">&copy; {new Date().getFullYear()} IntelliaWorks. <span data-i18n="footer.rights">Todos los derechos reservados.</span></p>
