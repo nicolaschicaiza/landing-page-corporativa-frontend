@@ -365,14 +365,22 @@ const i18n = { es, en };
                 </div>
                 <label class="grid gap-[0.35rem]">
                   <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.service">¿En qué podemos ayudarte?</span>
-                  <select name="service" required class="w-full border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] px-[0.72rem] py-[0.72rem] font-[inherit] text-[1rem] transition-[border-color,background,color] duration-200">
-                    <option value="" data-i18n="contact.form.serviceDefault">Selecciona un servicio</option>
-                    <option value="desarrollo"        data-i18n="contact.form.service1">Desarrollo web</option>
-                    <option value="gestion-proyectos" data-i18n="contact.form.service2">Gestión de proyectos</option>
-                    <option value="marketing"         data-i18n="contact.form.service3">Marketing y automatización</option>
-                    <option value="cloud"             data-i18n="contact.form.service4">Cloud y DevOps</option>
-                    <option value="qa"                data-i18n="contact.form.service5">QA y calidad</option>
-                  </select>
+                  <div class="relative">
+                    <select name="service" required class="w-full appearance-none cursor-pointer border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] pl-[0.72rem] pr-[2.4rem] py-[0.72rem] font-[inherit] text-[1rem] transition-[border-color,background,color] duration-200">
+                      <option value="" data-i18n="contact.form.serviceDefault">Selecciona un servicio</option>
+                      <option value="desarrollo"        data-i18n="contact.form.service1">Desarrollo web</option>
+                      <option value="gestion-proyectos" data-i18n="contact.form.service2">Gestión de proyectos</option>
+                      <option value="marketing"         data-i18n="contact.form.service3">Marketing y automatización</option>
+                      <option value="cloud"             data-i18n="contact.form.service4">Cloud y DevOps</option>
+                      <option value="qa"                data-i18n="contact.form.service5">QA y calidad</option>
+                    </select>
+                    <!-- Custom chevron -->
+                    <span class="pointer-events-none absolute inset-y-0 right-[0.75rem] flex items-center text-[var(--muted)]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"/>
+                      </svg>
+                    </span>
+                  </div>
                 </label>
                 <label class="grid gap-[0.35rem]">
                   <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.message">Cuéntanos sobre tu proyecto</span>
