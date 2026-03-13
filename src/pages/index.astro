@@ -1597,14 +1597,13 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
         }
       };
 
-      const renderRecaptcha = (theme) => {
+      const renderRecaptcha = () => {
         if (!recaptchaSiteKey || !recaptchaWidgetEl || !window.grecaptcha?.render) return;
         if (recaptchaWidgetEl) recaptchaWidgetEl.innerHTML = "";
         recaptchaWidgetId = null;
         if (captchaTokenInput) captchaTokenInput.value = "";
         recaptchaWidgetId = window.grecaptcha.render(recaptchaWidgetEl, {
           sitekey: recaptchaSiteKey,
-          theme,
           callback: (token) => {
             if (captchaTokenInput) captchaTokenInput.value = token;
             checkFormValidity();
@@ -1637,41 +1636,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
           return;
         }
 
-        const theme =
-          document.documentElement.getAttribute("data-theme") === "dark"
-            ? "dark"
-            : "light";
-        renderRecaptcha(theme);
+        renderRecaptcha();
       };
 
       initRecaptcha();
-
-      // Re-render reCAPTCHA once the View Transition animation fully ends.
-      // We watch for the removal of the 'theme-switching' class (added at
-      // transition start, removed in anim.finish) so there is no fixed timeout
-      // and the widget is never wiped while the snapshot is active.
-      // CSS already hides the widget during the transition (html.theme-switching #recaptcha-widget).
-      if (recaptchaSiteKey && recaptchaWidgetEl) {
-        new MutationObserver((mutations) => {
-          for (const m of mutations) {
-            if (
-              m.attributeName === "class" &&
-              !document.documentElement.classList.contains("theme-switching")
-            ) {
-              const theme =
-                document.documentElement.getAttribute("data-theme") === "dark"
-                  ? "dark"
-                  : "light";
-              renderRecaptcha(theme);
-              checkFormValidity();
-              break;
-            }
-          }
-        }).observe(document.documentElement, {
-          attributes: true,
-          attributeFilter: ["class"],
-        });
-      }
 
       form?.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -1839,29 +1807,31 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
         // Suppress competing element transitions during the view transition
         document.documentElement.classList.add("theme-switching");
 
-        const transition = document.startViewTransition(() =>
-          applyTheme(newTheme),
-        );
+        try {
+          const transition = document.startViewTransition(() =>
+            applyTheme(newTheme),
+          );
 
-        await transition.ready;
+          await transition.ready;
 
-        const anim = document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${clientX}px ${clientY}px)`,
-              `circle(${maxRadius}px at ${clientX}px ${clientY}px)`,
-            ],
-          },
-          {
-            duration: 800,
-            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-            pseudoElement: "::view-transition-new(root)",
-          },
-        );
+          const anim = document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${clientX}px ${clientY}px)`,
+                `circle(${maxRadius}px at ${clientX}px ${clientY}px)`,
+              ],
+            },
+            {
+              duration: 800,
+              easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+              pseudoElement: "::view-transition-new(root)",
+            },
+          );
 
-        anim.addEventListener("finish", () => {
+          await anim.finished;
+        } finally {
           document.documentElement.classList.remove("theme-switching");
-        });
+        }
       });
     </script>
 
