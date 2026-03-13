@@ -30,8 +30,8 @@ const i18n = { es, en };
   <body class="m-0">
 
     <!-- Background orbs -->
-    <div class="fixed -z-[2] rounded-full blur-[56px] opacity-45 pointer-events-none w-[260px] h-[260px] bg-[var(--orb-a)] -left-[70px] top-[30vh] transition-[background] duration-[400ms]"></div>
-    <div class="fixed -z-[2] rounded-full blur-[56px] opacity-45 pointer-events-none w-[280px] h-[280px] bg-[var(--orb-b)] -right-[80px] top-[18vh] transition-[background] duration-[400ms]"></div>
+    <div class="bg-orb orb-a" aria-hidden="true"></div>
+    <div class="bg-orb orb-b" aria-hidden="true"></div>
 
     <!-- ── Header ─────────────────────────────────────────── -->
     <header class="sticky top-0 z-40 bg-[var(--header-bg)] backdrop-blur-[10px] border-b border-[var(--header-border)] transition-[background,border-color] duration-300">
@@ -478,13 +478,38 @@ const i18n = { es, en };
         scrollTopBtn?.classList.toggle("visible", !showDown);
       };
 
+      const updateBackgroundShift = () => {
+        const y = window.scrollY;
+        const shift = Math.min(y * 0.16, 220);
+
+        document.documentElement.style.setProperty("--bg-shift", `${shift}px`);
+        document.documentElement.style.setProperty("--orb-a-y", `${Math.min(y * 0.55, 900)}px`);
+        document.documentElement.style.setProperty("--orb-b-y", `${Math.min(y * 0.82, 1300)}px`);
+        document.documentElement.style.setProperty("--orb-a-x", `${Math.sin(y * 0.0032) * 74}px`);
+        document.documentElement.style.setProperty("--orb-b-x", `${Math.sin(y * 0.0027 + 1.1) * -92}px`);
+      };
+
       updateScrollButtons();
-      window.addEventListener("scroll", updateScrollButtons, { passive: true });
+      updateBackgroundShift();
+
+      let scrollTicking = false;
+      const onScroll = () => {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+          updateScrollButtons();
+          updateBackgroundShift();
+          scrollTicking = false;
+        });
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("pageshow", (event) => {
         if (event.persisted && !window.location.hash) {
           window.scrollTo({ top: 0, left: 0, behavior: "auto" });
         }
         updateScrollButtons();
+        updateBackgroundShift();
       });
       // --- fin scroll ---
 
