@@ -363,25 +363,64 @@ const i18n = { es, en };
                       data-i18n-placeholder="contact.form.emailPlaceholder" />
                   </label>
                 </div>
-                <label class="grid gap-[0.35rem]">
-                  <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.service">¿En qué podemos ayudarte?</span>
-                  <div class="relative">
-                    <select name="service" required class="w-full appearance-none cursor-pointer border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] pl-[0.72rem] pr-[2.4rem] py-[0.72rem] font-[inherit] text-[1rem] transition-[border-color,background,color] duration-200">
-                      <option value="" data-i18n="contact.form.serviceDefault">Selecciona un servicio</option>
-                      <option value="desarrollo"        data-i18n="contact.form.service1">Desarrollo web</option>
-                      <option value="gestion-proyectos" data-i18n="contact.form.service2">Gestión de proyectos</option>
-                      <option value="marketing"         data-i18n="contact.form.service3">Marketing y automatización</option>
-                      <option value="cloud"             data-i18n="contact.form.service4">Cloud y DevOps</option>
-                      <option value="qa"                data-i18n="contact.form.service5">QA y calidad</option>
-                    </select>
-                    <!-- Custom chevron -->
-                    <span class="pointer-events-none absolute inset-y-0 right-[0.75rem] flex items-center text-[var(--muted)]">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="m6 9 6 6 6-6"/>
-                      </svg>
-                    </span>
+                <div class="grid gap-[0.35rem]">
+                  <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.service" id="service-label">¿En qué podemos ayudarte?</span>
+                  <div class="relative" id="service-dropdown">
+                    <!-- Hidden input carries value in FormData -->
+                    <input type="hidden" name="service" id="service-value" />
+                    <!-- Trigger -->
+                    <button
+                      type="button"
+                      id="service-btn"
+                      role="combobox"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                      aria-controls="service-listbox"
+                      aria-labelledby="service-label service-display"
+                      class="w-full flex items-center justify-between gap-2 border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] pl-[0.72rem] pr-[0.72rem] py-[0.72rem] font-[inherit] text-[1rem] text-left cursor-pointer transition-[border-color,box-shadow] duration-200"
+                    >
+                      <span id="service-display" class="pointer-events-none text-[var(--muted)]" data-i18n="contact.form.serviceDefault">Selecciona un servicio</span>
+                      <span id="service-chevron" class="pointer-events-none shrink-0 text-[var(--muted)] transition-transform duration-200" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                      </span>
+                    </button>
+                    <!-- Listbox -->
+                    <ul
+                      id="service-listbox"
+                      role="listbox"
+                      aria-labelledby="service-label"
+                      class="service-listbox absolute z-50 top-[calc(100%+6px)] left-0 right-0 bg-[var(--paper)] border border-[var(--line)] rounded-[12px] shadow-[var(--shadow)] overflow-hidden py-[0.3rem]"
+                    >
+                      <li role="option" aria-selected="false" data-value="" class="service-option px-[0.9rem] py-[0.5rem] text-[0.88rem] text-[var(--muted)] italic cursor-default select-none" data-i18n="contact.form.serviceDefault">Selecciona un servicio</li>
+                      <li class="mx-[0.4rem] h-px bg-[var(--line)]" role="separator" aria-hidden="true"></li>
+                      <li role="option" aria-selected="false" data-value="desarrollo" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
+                        <span class="icon-badge icon-badge-dev" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+                        <span class="service-option-label" data-i18n="contact.form.service1">Desarrollo web</span>
+                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      </li>
+                      <li role="option" aria-selected="false" data-value="gestion-proyectos" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
+                        <span class="icon-badge icon-badge-pm" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17h7M17.5 14v7"/></svg></span>
+                        <span class="service-option-label" data-i18n="contact.form.service2">Gestión de proyectos</span>
+                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      </li>
+                      <li role="option" aria-selected="false" data-value="marketing" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
+                        <span class="icon-badge icon-badge-mkt" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+                        <span class="service-option-label" data-i18n="contact.form.service3">Marketing y automatización</span>
+                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      </li>
+                      <li role="option" aria-selected="false" data-value="cloud" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
+                        <span class="icon-badge icon-badge-cloud" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg></span>
+                        <span class="service-option-label" data-i18n="contact.form.service4">Cloud y DevOps</span>
+                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      </li>
+                      <li role="option" aria-selected="false" data-value="qa" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
+                        <span class="icon-badge icon-badge-qa" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
+                        <span class="service-option-label" data-i18n="contact.form.service5">QA y calidad</span>
+                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      </li>
+                    </ul>
                   </div>
-                </label>
+                </div>
                 <label class="grid gap-[0.35rem]">
                   <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.message">Cuéntanos sobre tu proyecto</span>
                   <textarea name="message" rows="4" required
@@ -631,6 +670,81 @@ const i18n = { es, en };
         }
       });
 
+      // --- Custom service dropdown ---
+      (function () {
+        const dropdown  = document.getElementById("service-dropdown");
+        const btn       = document.getElementById("service-btn") as HTMLButtonElement | null;
+        const listbox   = document.getElementById("service-listbox");
+        const display   = document.getElementById("service-display") as HTMLElement | null;
+        const hidden    = document.getElementById("service-value") as HTMLInputElement | null;
+        const options   = listbox?.querySelectorAll<HTMLLIElement>("li[data-value]:not([data-value=''])");
+
+        function openDropdown() {
+          dropdown?.classList.add("open");
+          btn?.setAttribute("aria-expanded", "true");
+        }
+        function closeDropdown() {
+          dropdown?.classList.remove("open");
+          btn?.setAttribute("aria-expanded", "false");
+        }
+        function selectOption(li: HTMLLIElement) {
+          const value = li.dataset.value ?? "";
+          if (!value) return;
+          hidden!.value = value;
+
+          // Update display text & colour
+          const labelText = li.querySelector(".service-option-label")?.textContent ?? "";
+          display!.textContent = labelText;
+          display!.classList.remove("text-[var(--muted)]");
+          display!.classList.add("text-[var(--ink)]");
+
+          // Update aria-selected
+          options?.forEach((o) => o.setAttribute("aria-selected", "false"));
+          li.setAttribute("aria-selected", "true");
+
+          closeDropdown();
+        }
+        function resetDropdown() {
+          hidden!.value = "";
+          const placeholder = listbox?.querySelector<HTMLLIElement>("li[data-value='']");
+          display!.textContent = placeholder?.textContent?.trim() ?? "";
+          display!.classList.add("text-[var(--muted)]");
+          display!.classList.remove("text-[var(--ink)]");
+          options?.forEach((o) => o.setAttribute("aria-selected", "false"));
+        }
+
+        // Expose sync for i18n lang change
+        (window as any).__syncServiceDisplay__ = function () {
+          const value = hidden?.value;
+          if (!value) {
+            const placeholder = listbox?.querySelector<HTMLLIElement>("li[data-value='']");
+            if (placeholder && display) display.textContent = placeholder.textContent?.trim() ?? "";
+          } else {
+            const selected = listbox?.querySelector<HTMLLIElement>(`li[data-value="${value}"]`);
+            if (selected && display) display.textContent = selected.querySelector(".service-option-label")?.textContent ?? "";
+          }
+        };
+
+        btn?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          dropdown?.classList.contains("open") ? closeDropdown() : openDropdown();
+        });
+
+        options?.forEach((li) => {
+          li.addEventListener("click", () => selectOption(li));
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!dropdown?.contains(e.target as Node)) closeDropdown();
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && dropdown?.classList.contains("open")) closeDropdown();
+        });
+
+        form?.addEventListener("reset", () => setTimeout(resetDropdown, 0));
+      })();
+
       // --- Theme toggle (epic circular reveal) ---
       const themeToggle = document.getElementById("theme-toggle");
 
@@ -724,6 +838,11 @@ const i18n = { es, en };
 
         localStorage.setItem("lang", lang);
         window.__currentLang__ = lang;
+
+        // Sync custom service dropdown display label after translations update
+        if (typeof window.__syncServiceDisplay__ === "function") {
+          window.__syncServiceDisplay__();
+        }
       }
 
       // Apply saved language on load
