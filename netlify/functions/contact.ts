@@ -26,6 +26,49 @@ const isSmtpConfigured = (): boolean => {
   );
 };
 
+const isRecaptchaConfigured = (): boolean => {
+  return Boolean(process.env.RECAPTCHA_SECRET_KEY);
+};
+
+type RecaptchaVerificationResponse = {
+  success: boolean;
+  "error-codes"?: string[];
+};
+
+const verifyRecaptchaToken = async (token: string, remoteIp: string): Promise<boolean> => {
+  if (!isRecaptchaConfigured()) {
+    return true;
+  }
+
+  const body = new URLSearchParams({
+    secret: process.env.RECAPTCHA_SECRET_KEY!,
+    response: token
+  });
+
+  if (remoteIp) {
+    body.append("remoteip", remoteIp);
+  }
+
+  const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: body.toString()
+  });
+
+  if (!response.ok) {
+    return false;
+  }
+
+  const result = (await response.json()) as RecaptchaVerificationResponse;
+  if (!result.success) {
+    console.warn("reCAPTCHA verification failed", result["error-codes"] ?? []);
+  }
+
+  return result.success;
+};
+
 const sendLeadNotification = async (input: {
   name: string;
   email: string;
@@ -98,7 +141,9 @@ export const handler: Handler = async (event) => {
     const service = sanitize(payload.service, 120);
     const message = sanitize(payload.message, 2000);
     const company = sanitize(payload.company, 120);
+    const captchaToken = sanitize(payload.captchaToken, 2048);
     const submittedAt = Number(payload.submittedAt || 0);
+    const clientIp = sanitize(event.headers["x-nf-client-connection-ip"] ?? "", 120);
 
     if (company) {
       return { statusCode: 400, body: JSON.stringify({ ok: false, message: "Solicitud invalida" }) };
@@ -117,6 +162,15 @@ export const handler: Handler = async (event) => {
       return { statusCode: 400, body: JSON.stringify({ ok: false, message: "Correo invalido" }) };
     }
 
+    if (isRecaptchaConfigured() && !captchaToken) {
+      return { statusCode: 400, body: JSON.stringify({ ok: false, message: "Captcha requerido" }) };
+    }
+
+    const captchaValid = await verifyRecaptchaToken(captchaToken, clientIp);
+    if (!captchaValid) {
+      return { statusCode: 400, body: JSON.stringify({ ok: false, message: "Captcha invalido" }) };
+    }
+
     const createdAt = new Date().toISOString();
 
     await db.collection("leads").add({
@@ -128,7 +182,8 @@ export const handler: Handler = async (event) => {
       source: "landing-page-corporativa",
       metadata: {
         userAgent: event.headers["user-agent"] ?? "",
-        ip: event.headers["x-nf-client-connection-ip"] ?? ""
+        ip: clientIp,
+        captchaProtected: isRecaptchaConfigured()
       }
     });
 

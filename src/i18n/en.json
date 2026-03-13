@@ -91,23 +91,33 @@
     }
   },
   "results": {
-    "article1": {
-      "label": "Operations",
-      "value": "+120",
-      "title": "Sprints executed",
-      "desc": "With product and marketing teams across different industries."
-    },
-    "article2": {
-      "label": "Efficiency",
-      "value": "98%",
-      "title": "On-time deliveries",
-      "desc": "Clear prioritization and weekly milestone tracking."
-    },
-    "article3": {
-      "label": "Support",
-      "value": "24h",
-      "title": "Response time",
-      "desc": "Direct attention to unblock decisions and move fast."
+    "eyebrow": "Completed projects",
+    "headline": "Projects built to drive results, efficiency and digital growth",
+    "lead": "Explore a curated selection of solutions created with strategic thinking, technical execution and a clear business focus to generate measurable impact.",
+    "projects": {
+      "cta": "View project",
+      "items": {
+        "1": {
+          "name": "B2B commercial portal",
+          "description": "Platform focused on lead capture, catalog management and commercial follow-up with conversion in mind.",
+          "projectType": "Web platform"
+        },
+        "2": {
+          "name": "SaaS acquisition landing page",
+          "description": "Landing page optimized for digital campaigns, form automation and funnel measurement.",
+          "projectType": "Landing page"
+        },
+        "3": {
+          "name": "Operational dashboard",
+          "description": "Internal dashboard to visualize key metrics, automate reporting and accelerate decision-making.",
+          "projectType": "Dashboard"
+        },
+        "4": {
+          "name": "Commercial automation system",
+          "description": "Solution oriented to workflows, opportunity tracking and coordination between marketing and sales.",
+          "projectType": "Automation"
+        }
+      }
     }
   },
   "faq": {
@@ -182,8 +192,10 @@
       "service5": "QA & quality",
       "message": "Tell us about your project",
       "messagePlaceholder": "Briefly describe what you want to build, improve or solve. The more details, the better we can guide you.",
+      "captchaHelp": "Complete the reCAPTCHA before sending your inquiry.",
+      "captchaRequired": "Complete the captcha verification before sending.",
       "company": "Company",
-      "submit": "Send inquiry",
+      "submit": "Send message",
       "sending": "Sending...",
       "success": "Thank you. We'll reach out soon.",
       "error": "Unexpected error"

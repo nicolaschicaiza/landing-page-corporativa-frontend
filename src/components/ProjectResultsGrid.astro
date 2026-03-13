@@ -1,0 +1,69 @@
+---
+import logoApp from "../images/logo_app.webp";
+import es from "../i18n/es.json";
+
+interface ProjectItem {
+  nameKey: string;
+  descriptionKey: string;
+  projectTypeKey: string;
+  url: string;
+  image: string;
+}
+
+interface Props {
+  projects: ProjectItem[];
+}
+
+const { projects = [] } = Astro.props;
+
+const getVal = (obj: Record<string, any>, path: string): unknown => {
+  return path.split(".").reduce((acc: any, key: string) => acc?.[key], obj);
+};
+
+const getText = (path: string, fallback: string): string => {
+  const value = getVal(es, path);
+  return typeof value === "string" ? value : fallback;
+};
+
+const resolveImageSrc = (image: string) => {
+  if (image === "logo_app.webp") return logoApp.src;
+  return logoApp.src;
+};
+---
+
+<div class="results-grid grid grid-cols-2 max-[980px]:grid-cols-1 gap-[0.95rem]">
+  {projects.map((project) => (
+    <article class="border border-(--results-border) rounded-[22px] bg-(--results-bg) shadow-[0_10px_24px_rgba(16,47,64,0.1)] p-5 transition-[border-color,background,transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(16,47,64,0.16)]">
+      <div class="flex items-start gap-4">
+        <img
+          src={resolveImageSrc(project.image)}
+          alt={getText(project.nameKey, "Proyecto")}
+          class="w-14 h-14 rounded-2xl border border-(--card-border) bg-(--paper) object-contain p-2 shrink-0"
+          loading="lazy"
+          decoding="async"
+          width="56"
+          height="56"
+        />
+        <div class="min-w-0 flex-1">
+          <p class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.11em] text-(--brand) border border-(--kicker-border) rounded-full px-[0.58rem] py-[0.27rem] bg-(--kicker-bg) transition-[border-color,background] duration-300" data-i18n={project.projectTypeKey}>
+            {getText(project.projectTypeKey, "Proyecto")}
+          </p>
+          <h3 class="m-0 text-[1.08rem] text-(--ink) leading-tight" data-i18n={project.nameKey}>{getText(project.nameKey, "Proyecto")}</h3>
+        </div>
+      </div>
+
+      <p class="mt-4 mb-0 text-(--muted) leading-[1.65] text-[0.96rem]" data-i18n={project.descriptionKey}>{getText(project.descriptionKey, "")}</p>
+
+      <div class="mt-5">
+        <a
+          href={project.url}
+          class="inline-flex items-center gap-2 text-(--brand-strong) font-semibold text-[0.95rem] hover:text-(--brand) transition-colors duration-200"
+          data-i18n="results.projects.cta"
+        >
+          {es.results.projects.cta}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </article>
+  ))}
+</div>

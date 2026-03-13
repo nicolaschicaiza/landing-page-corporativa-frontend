@@ -3,11 +3,14 @@ import "../styles/global.css";
 import logo from "../images/logo.png";
 import logoLight from "../images/logo_light.png";
 import NavLinks from "../components/NavLinks.astro";
+import ProjectResultsGrid from "../components/ProjectResultsGrid.astro";
 import heroIllustration from "../images/illustrations/hero-services-storyset.svg";
 import faqIllustration from "../images/faq.svg";
+import projects from "../data/projects.json";
 import es from "../i18n/es.json";
 import en from "../i18n/en.json";
 const i18n = { es, en };
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 ---
 
 <html lang="es">
@@ -23,23 +26,45 @@ const i18n = { es, en };
     <script is:inline>
       (function () {
         const t = localStorage.getItem("theme");
-        if (t === "dark") document.documentElement.setAttribute("data-theme", "dark");
+        if (t === "dark")
+          document.documentElement.setAttribute("data-theme", "dark");
       })();
     </script>
+    {
+      recaptchaSiteKey && (
+        <script
+          src="https://www.google.com/recaptcha/api.js?render=explicit"
+          async
+          defer
+        />
+      )
+    }
   </head>
-  <body class="m-0">
-
+  <body class="m-0" data-recaptcha-site-key={recaptchaSiteKey}>
     <!-- Background orbs -->
     <div class="bg-orb orb-a" aria-hidden="true"></div>
     <div class="bg-orb orb-b" aria-hidden="true"></div>
 
     <!-- ── Header ─────────────────────────────────────────── -->
-    <header class="sticky top-0 z-40 bg-[var(--header-bg)] backdrop-blur-[10px] border-b border-[var(--header-border)] transition-[background,border-color] duration-300">
+    <header
+      class="sticky top-0 z-40 bg-[var(--header-bg)] backdrop-blur-[10px] border-b border-[var(--header-border)] transition-[background,border-color] duration-300"
+    >
       <div class="wrapper flex justify-between items-center min-h-[74px]">
-
         <a class="inline-flex items-center" href="#inicio">
-          <img src={logo.src}      alt="IntelliaWorks" class="logo-dark  h-9 w-auto block" width="160" height="36" />
-          <img src={logoLight.src} alt="IntelliaWorks" class="logo-light h-9 w-auto"       width="160" height="36" />
+          <img
+            src={logo.src}
+            alt="IntelliaWorks"
+            class="logo-dark h-9 w-auto block"
+            width="160"
+            height="36"
+          />
+          <img
+            src={logoLight.src}
+            alt="IntelliaWorks"
+            class="logo-light h-9 w-auto"
+            width="160"
+            height="36"
+          />
         </a>
 
         <nav id="main-nav" class="flex items-center gap-5">
@@ -47,28 +72,53 @@ const i18n = { es, en };
         </nav>
 
         <div class="flex items-center gap-2">
-
           <!-- Language switcher -->
           <div class="relative" id="lang-switcher">
-            <button class="inline-flex items-center gap-[0.28rem] border border-[var(--line)] rounded-lg bg-[var(--paper)] text-[var(--ink)] text-[0.8rem] font-semibold px-[0.6rem] py-[0.38rem] cursor-pointer transition-[border-color,background,color] duration-200 hover:border-[var(--brand)]" id="lang-btn" aria-label="Cambiar idioma">
+            <button
+              class="inline-flex items-center gap-[0.28rem] border border-[var(--line)] rounded-lg bg-[var(--paper)] text-[var(--ink)] text-[0.8rem] font-semibold px-[0.6rem] py-[0.38rem] cursor-pointer transition-[border-color,background,color] duration-200 hover:border-[var(--brand)]"
+              id="lang-btn"
+              aria-label="Cambiar idioma"
+            >
               <span id="lang-label">ES</span>
-              <i data-lucide="chevron-down" class="lang-chevron transition-transform duration-[220ms]" style="width:13px;height:13px"></i>
+              <i
+                data-lucide="chevron-down"
+                class="lang-chevron transition-transform duration-[220ms]"
+                style="width:13px;height:13px"></i>
             </button>
-            <div class="absolute top-[calc(100%+6px)] right-0 min-w-[130px] bg-[var(--paper)] border border-[var(--line)] rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] overflow-hidden z-[100]" id="lang-dropdown">
-              <button class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150" data-lang="es">🇪🇸 Español</button>
-              <button class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150" data-lang="en">🇬🇧 English</button>
+            <div
+              class="absolute top-[calc(100%+6px)] right-0 min-w-[130px] bg-[var(--paper)] border border-[var(--line)] rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] overflow-hidden z-[100]"
+              id="lang-dropdown"
+            >
+              <button
+                class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150"
+                data-lang="es">🇪🇸 Español</button
+              >
+              <button
+                class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150"
+                data-lang="en">🇬🇧 English</button
+              >
             </div>
           </div>
 
           <!-- Theme toggle -->
-          <button class="inline-flex items-center p-[3px] border border-[var(--line)] rounded-full bg-[var(--paper)] text-[var(--ink)] cursor-pointer relative transition-[border-color,background] duration-200 hover:border-[var(--brand)]" id="theme-toggle" aria-label="Cambiar tema">
+          <button
+            class="inline-flex items-center p-[3px] border border-[var(--line)] rounded-full bg-[var(--paper)] text-[var(--ink)] cursor-pointer relative transition-[border-color,background] duration-200 hover:border-[var(--brand)]"
+            id="theme-toggle"
+            aria-label="Cambiar tema"
+          >
             <span class="toggle-thumb"></span>
             <span id="wrap-sun"><i data-lucide="sun"></i></span>
             <span id="wrap-moon"><i data-lucide="moon"></i></span>
           </button>
 
           <!-- Mobile menu button -->
-          <button id="menu-toggle" class="menu-toggle hidden border border-[var(--line)] rounded-[10px] w-[42px] h-[42px] items-center justify-center flex-col bg-[var(--paper)] relative" type="button" aria-label="Abrir menú" data-i18n-aria="nav.menuLabel">
+          <button
+            id="menu-toggle"
+            class="menu-toggle hidden border border-[var(--line)] rounded-[10px] w-[42px] h-[42px] items-center justify-center flex-col bg-[var(--paper)] relative"
+            type="button"
+            aria-label="Abrir menú"
+            data-i18n-aria="nav.menuLabel"
+          >
             <span></span>
             <span></span>
           </button>
@@ -77,111 +127,313 @@ const i18n = { es, en };
     </header>
 
     <!-- Scroll top FAB -->
-    <button id="scroll-top" class="scroll-fab fixed bottom-8 right-8 z-[200] flex items-center justify-center w-[46px] h-[46px] rounded-full border-none bg-[var(--brand)] text-white cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.18)] opacity-0 pointer-events-none translate-y-3 transition-[opacity,transform] duration-300 hover:bg-[var(--brand-strong)]" aria-label="Volver al inicio">
+    <button
+      id="scroll-top"
+      class="scroll-fab fixed bottom-8 right-8 z-[200] flex items-center justify-center w-[46px] h-[46px] rounded-full border-none bg-[var(--brand)] text-white cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.18)] opacity-0 pointer-events-none translate-y-3 transition-[opacity,transform] duration-300 hover:bg-[var(--brand-strong)]"
+      aria-label="Volver al inicio"
+    >
       <i data-lucide="chevron-up" class="w-5 h-5 block"></i>
     </button>
 
     <main>
-
       <!-- ── Hero ────────────────────────────────────────── -->
-      <section id="inicio" class="relative flex items-center min-h-[calc(100svh-74px)] max-[980px]:min-h-0 py-8 max-[980px]:pt-6 max-[980px]:pb-6 bg-[var(--tone-hero)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal">
-        <div class="wrapper grid grid-cols-[minmax(350px,1fr)_minmax(320px,460px)] max-[980px]:grid-cols-1 items-center justify-center gap-[clamp(1rem,2.2vw,2.1rem)] max-w-[1060px] mx-auto py-4">
-
+      <section
+        id="inicio"
+        class="relative flex items-center min-h-[calc(100svh-74px)] max-[980px]:min-h-0 py-8 max-[980px]:pt-6 max-[980px]:pb-6 bg-[var(--tone-hero)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal"
+      >
+        <div
+          class="wrapper grid grid-cols-[minmax(350px,1fr)_minmax(320px,460px)] max-[980px]:grid-cols-1 items-center justify-center gap-[clamp(1rem,2.2vw,2.1rem)] max-w-[1060px] mx-auto py-4"
+        >
           <div class="hero-copy max-w-[580px]">
-            <p class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold" data-i18n="hero.eyebrow">Consultoría y ejecución digital</p>
-            <h1 class="m-0 text-[clamp(2.35rem,4vw,4.1rem)] leading-[1.02] max-w-[11ch] text-balance text-[var(--ink)]" data-i18n="hero.headline">Construimos experiencias digitales que venden y escalan.</h1>
-            <p class="mt-4 max-w-[52ch] text-[1.03rem] text-[var(--muted)] m-0" data-i18n="hero.lead">
-              Combinamos desarrollo, marketing, cloud y QA para ayudarte a lanzar más rápido, convertir mejor y tomar decisiones con datos.
+            <p
+              class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold"
+              data-i18n="hero.eyebrow"
+            >
+              Consultoría y ejecución digital
+            </p>
+            <h1
+              class="m-0 text-[clamp(2.35rem,4vw,4.1rem)] leading-[1.02] max-w-[11ch] text-balance text-[var(--ink)]"
+              data-i18n="hero.headline"
+            >
+              Construimos experiencias digitales que venden y escalan.
+            </h1>
+            <p
+              class="mt-4 max-w-[52ch] text-[1.03rem] text-[var(--muted)] m-0"
+              data-i18n="hero.lead"
+            >
+              Combinamos desarrollo, marketing, cloud y QA para ayudarte a
+              lanzar más rápido, convertir mejor y tomar decisiones con datos.
             </p>
             <div class="mt-6 flex gap-3 flex-wrap hero-actions">
-              <a href="#contacto" class="btn-primary inline-flex items-center justify-center rounded-xl px-[1.12rem] py-[0.78rem] text-[0.94rem] font-bold border border-transparent hover:-translate-y-0.5 transition-[transform,box-shadow,background] duration-200 cursor-pointer" data-i18n="hero.cta">Solicitar propuesta</a>
-              <a href="#servicios" class="inline-flex items-center justify-center rounded-xl px-[1.12rem] py-[0.78rem] text-[0.94rem] font-bold border border-[var(--ghost-border)] bg-[var(--paper)] text-[var(--ink)] hover:-translate-y-0.5 transition-[transform,box-shadow] duration-200" data-i18n="nav.services">Ver servicios</a>
+              <a
+                href="#contacto"
+                class="btn-primary inline-flex items-center justify-center rounded-xl px-[1.12rem] py-[0.78rem] text-[0.94rem] font-bold border border-transparent hover:-translate-y-0.5 transition-[transform,box-shadow,background] duration-200 cursor-pointer"
+                data-i18n="hero.cta">Solicitar propuesta</a
+              >
+              <a
+                href="#servicios"
+                class="inline-flex items-center justify-center rounded-xl px-[1.12rem] py-[0.78rem] text-[0.94rem] font-bold border border-[var(--ghost-border)] bg-[var(--paper)] text-[var(--ink)] hover:-translate-y-0.5 transition-[transform,box-shadow] duration-200"
+                data-i18n="nav.services">Ver servicios</a
+              >
             </div>
             <div class="mt-4 flex flex-wrap gap-2 hero-points">
-              <span class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300" data-i18n="hero.point1">Discovery estratégico</span>
-              <span class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300" data-i18n="hero.point2">Ejecución ágil</span>
-              <span class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300" data-i18n="hero.point3">Calidad desde el inicio</span>
-              <span class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300" data-i18n="hero.point4">+3 años de experiencia</span>
-              <span class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300" data-i18n="hero.point5">+20 proyectos realizados</span>
+              <!-- <span class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300" data-i18n="hero.point1">Discovery estratégico</span> -->
+              <span
+                class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300"
+                data-i18n="hero.point2">Ejecución ágil</span
+              >
+              <span
+                class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300"
+                data-i18n="hero.point3">Calidad desde el inicio</span
+              >
+              <span
+                class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300"
+                data-i18n="hero.point4">+3 años de experiencia</span
+              >
+              <span
+                class="rounded-full border border-[var(--point-border)] bg-[var(--point-bg)] text-[var(--point-color)] px-[0.7rem] py-[0.35rem] text-[0.8rem] transition-[border-color,background] duration-300"
+                data-i18n="hero.point5">+20 proyectos realizados</span
+              >
             </div>
           </div>
 
-          <aside class="hero-showcase relative grid gap-[0.72rem] content-start">
-            <figure class="m-0 border border-[var(--illustration-border)] rounded-[22px] bg-[var(--illustration-bg)] shadow-[var(--shadow)] p-[0.7rem] transition-[border-color,background] duration-300" style="animation:heroIllustrationFloat 6s ease-in-out infinite">
-              <img src={heroIllustration.src} alt="Ilustración de equipo planificando soluciones digitales" class="block w-full h-auto" loading="eager" decoding="async" />
+          <aside
+            class="hero-showcase relative grid gap-[0.72rem] content-start"
+          >
+            <figure
+              class="m-0 border border-[var(--illustration-border)] rounded-[22px] bg-[var(--illustration-bg)] shadow-[var(--shadow)] p-[0.7rem] transition-[border-color,background] duration-300"
+              style="animation:heroIllustrationFloat 6s ease-in-out infinite"
+            >
+              <img
+                src={heroIllustration.src}
+                alt="Ilustración de equipo planificando soluciones digitales"
+                class="block w-full h-auto"
+                loading="eager"
+                decoding="async"
+              />
             </figure>
-            <p class="m-0 px-[0.3rem] text-center text-[var(--muted)] text-[0.9rem] leading-[1.4]" data-i18n="hero.caption">Estrategia y ejecución para acelerar resultados digitales.</p>
-            <p class="mt-[-0.15rem] m-0 text-center text-[0.75rem] text-[#6f7f92]" data-i18n-html="hero.creditHtml">
-              Ilustración por <a href="https://storyset.com/technology" target="_blank" rel="noopener noreferrer" class="underline">Storyset</a>
+            <p
+              class="m-0 px-[0.3rem] text-center text-[var(--muted)] text-[0.9rem] leading-[1.4]"
+              data-i18n="hero.caption"
+            >
+              Estrategia y ejecución para acelerar resultados digitales.
+            </p>
+            <p
+              class="mt-[-0.15rem] m-0 text-center text-[0.75rem] text-[#6f7f92]"
+              data-i18n-html="hero.creditHtml"
+            >
+              Ilustración por <a
+                href="https://storyset.com/technology"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline">Storyset</a
+              >
             </p>
           </aside>
         </div>
 
         <div class="absolute left-1/2 bottom-5 -translate-x-1/2 z-[5]">
-          <a href="#servicios" id="scroll-down" class="scroll-down-btn flex items-center justify-center w-[52px] h-[52px] border-none bg-transparent text-[var(--brand-strong)] opacity-0 pointer-events-none -translate-y-2 transition-[opacity,transform,color] duration-300" aria-label="Deslizar hacia servicios">
+          <a
+            href="#servicios"
+            id="scroll-down"
+            class="scroll-down-btn flex items-center justify-center w-[52px] h-[52px] border-none bg-transparent text-[var(--brand-strong)] opacity-0 pointer-events-none -translate-y-2 transition-[opacity,transform,color] duration-300"
+            aria-label="Deslizar hacia servicios"
+          >
             <i data-lucide="chevron-down" class="w-8 h-8 block"></i>
           </a>
         </div>
       </section>
 
       <!-- ── Servicios ───────────────────────────────────── -->
-      <section id="servicios" class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-a)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal">
+      <section
+        id="servicios"
+        class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-a)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal"
+      >
         <div class="wrapper py-4">
           <div class="section-heading max-w-[760px]">
-            <p class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold" data-i18n="services.eyebrow">Servicios</p>
-            <h2 class="m-0 text-[clamp(1.7rem,3.8vw,2.65rem)] leading-[1.09] text-[var(--ink)]" data-i18n="services.headline">Soluciones modulares para cada etapa de tu crecimiento digital</h2>
-            <p class="mt-[0.7rem] mb-0 text-[var(--muted)] max-w-[56ch]" data-i18n="services.lead">
-              Diseñamos estrategias y ejecutamos con foco en resultados de negocio, no solo entregables técnicos.
+            <p
+              class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold"
+              data-i18n="services.eyebrow"
+            >
+              Servicios
+            </p>
+            <h2
+              class="m-0 text-[clamp(1.7rem,3.8vw,2.65rem)] leading-[1.09] text-[var(--ink)]"
+              data-i18n="services.headline"
+            >
+              Soluciones modulares para cada etapa de tu crecimiento digital
+            </h2>
+            <p
+              class="mt-[0.7rem] mb-0 text-[var(--muted)] max-w-[56ch]"
+              data-i18n="services.lead"
+            >
+              Diseñamos estrategias y ejecutamos con foco en resultados de
+              negocio, no solo entregables técnicos.
             </p>
           </div>
-          <div class="mt-5 grid gap-[0.9rem] grid-cols-12 max-[760px]:grid-cols-1">
-            <article class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]">
-              <p class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300" data-i18n="services.card1.kicker">Build</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="services.card1.title">Desarrollo de productos</h3>
-              <p class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]" data-i18n="services.card1.desc">Landing pages, plataformas web y APIs enfocadas en performance y conversión.</p>
-              <ul class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]">
-                <li data-i18n="services.card1.li1">Arquitectura frontend y backend</li>
-                <li data-i18n="services.card1.li2">Integraciones con CRM y pagos</li>
-                <li data-i18n="services.card1.li3">Medición de eventos y embudos</li>
+          <div
+            class="mt-5 grid gap-[0.9rem] grid-cols-12 max-[760px]:grid-cols-1"
+          >
+            <article
+              class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]"
+            >
+              <p
+                class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300"
+                data-i18n="services.card1.kicker"
+              >
+                Build
+              </p>
+              <h3
+                class="m-0 text-[var(--ink)]"
+                data-i18n="services.card1.title"
+              >
+                Desarrollo de productos
+              </h3>
+              <p
+                class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]"
+                data-i18n="services.card1.desc"
+              >
+                Landing pages, plataformas web y APIs enfocadas en performance y
+                conversión.
+              </p>
+              <ul
+                class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]"
+              >
+                <li data-i18n="services.card1.li1">
+                  Arquitectura frontend y backend
+                </li>
+                <li data-i18n="services.card1.li2">
+                  Integraciones con CRM y pagos
+                </li>
+                <li data-i18n="services.card1.li3">
+                  Medición de eventos y embudos
+                </li>
               </ul>
             </article>
-            <article class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]">
-              <p class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300" data-i18n="services.card2.kicker">Delivery</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="services.card2.title">Gestión de proyectos</h3>
-              <p class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]" data-i18n="services.card2.desc">Planificación clara, seguimiento visible y entregables con impacto en negocio.</p>
-              <ul class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]">
+            <article
+              class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]"
+            >
+              <p
+                class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300"
+                data-i18n="services.card2.kicker"
+              >
+                Delivery
+              </p>
+              <h3
+                class="m-0 text-[var(--ink)]"
+                data-i18n="services.card2.title"
+              >
+                Gestión de proyectos
+              </h3>
+              <p
+                class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]"
+                data-i18n="services.card2.desc"
+              >
+                Planificación clara, seguimiento visible y entregables con
+                impacto en negocio.
+              </p>
+              <ul
+                class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]"
+              >
                 <li data-i18n="services.card2.li1">Roadmap por fases</li>
-                <li data-i18n="services.card2.li2">Ritmo semanal con reportes</li>
-                <li data-i18n="services.card2.li3">Control de riesgo y alcance</li>
+                <li data-i18n="services.card2.li2">
+                  Ritmo semanal con reportes
+                </li>
+                <li data-i18n="services.card2.li3">
+                  Control de riesgo y alcance
+                </li>
               </ul>
             </article>
-            <article class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]">
-              <p class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300" data-i18n="services.card3.kicker">Growth</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="services.card3.title">Marketing y automatización</h3>
-              <p class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]" data-i18n="services.card3.desc">Captación de leads y mejora de conversión con ejecución orientada a datos.</p>
-              <ul class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]">
+            <article
+              class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]"
+            >
+              <p
+                class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300"
+                data-i18n="services.card3.kicker"
+              >
+                Growth
+              </p>
+              <h3
+                class="m-0 text-[var(--ink)]"
+                data-i18n="services.card3.title"
+              >
+                Marketing y automatización
+              </h3>
+              <p
+                class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]"
+                data-i18n="services.card3.desc"
+              >
+                Captación de leads y mejora de conversión con ejecución
+                orientada a datos.
+              </p>
+              <ul
+                class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]"
+              >
                 <li data-i18n="services.card3.li1">Campañas y funnels</li>
                 <li data-i18n="services.card3.li2">Email journeys</li>
                 <li data-i18n="services.card3.li3">Analítica accionable</li>
               </ul>
             </article>
-            <article class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]">
-              <p class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300" data-i18n="services.card4.kicker">Cloud</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="services.card4.title">Cloud y DevOps</h3>
-              <p class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]" data-i18n="services.card4.desc">Infraestructura moderna, despliegues continuos y entornos seguros.</p>
-              <ul class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]">
-                <li data-i18n="services.card4.li1">Entornos dev, staging y prod</li>
+            <article
+              class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]"
+            >
+              <p
+                class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300"
+                data-i18n="services.card4.kicker"
+              >
+                Cloud
+              </p>
+              <h3
+                class="m-0 text-[var(--ink)]"
+                data-i18n="services.card4.title"
+              >
+                Cloud y DevOps
+              </h3>
+              <p
+                class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]"
+                data-i18n="services.card4.desc"
+              >
+                Infraestructura moderna, despliegues continuos y entornos
+                seguros.
+              </p>
+              <ul
+                class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]"
+              >
+                <li data-i18n="services.card4.li1">
+                  Entornos dev, staging y prod
+                </li>
                 <li data-i18n="services.card4.li2">CI/CD y monitoreo</li>
                 <li data-i18n="services.card4.li3">Costos cloud optimizados</li>
               </ul>
             </article>
-            <article class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]">
-              <p class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300" data-i18n="services.card5.kicker">Quality</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="services.card5.title">QA y calidad de producto</h3>
-              <p class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]" data-i18n="services.card5.desc">Pruebas funcionales y técnicas para reducir bugs en producción.</p>
-              <ul class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]">
+            <article
+              class="service-card col-span-4 max-[980px]:col-span-6 max-[760px]:col-span-12 border border-[var(--card-border)] rounded-[18px] p-4 bg-[var(--paper)] shadow-[0_10px_24px_rgba(25,35,46,0.07)] hover:-translate-y-[5px] hover:shadow-[0_18px_34px_rgba(25,35,46,0.14)] transition-[transform,box-shadow,border-color,background] duration-[220ms]"
+            >
+              <p
+                class="m-0 mb-2 inline-flex text-[0.72rem] uppercase tracking-[0.12em] text-[var(--brand)] border border-[var(--kicker-border)] rounded-full px-[0.58rem] py-[0.27rem] bg-[var(--kicker-bg)] transition-[border-color,background] duration-300"
+                data-i18n="services.card5.kicker"
+              >
+                Quality
+              </p>
+              <h3
+                class="m-0 text-[var(--ink)]"
+                data-i18n="services.card5.title"
+              >
+                QA y calidad de producto
+              </h3>
+              <p
+                class="mt-[0.58rem] mb-[0.58rem] text-[var(--muted)]"
+                data-i18n="services.card5.desc"
+              >
+                Pruebas funcionales y técnicas para reducir bugs en producción.
+              </p>
+              <ul
+                class="m-0 pl-[1.05rem] leading-[1.38] text-[var(--list-color)]"
+              >
                 <li data-i18n="services.card5.li1">Estrategia QA por riesgo</li>
-                <li data-i18n="services.card5.li2">Automatización de pruebas clave</li>
+                <li data-i18n="services.card5.li2">
+                  Automatización de pruebas clave
+                </li>
                 <li data-i18n="services.card5.li3">Checklists de release</li>
               </ul>
             </article>
@@ -190,115 +442,308 @@ const i18n = { es, en };
       </section>
 
       <!-- ── Proceso ─────────────────────────────────────── -->
-      <section id="proceso" class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-b)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal">
+      <section
+        id="proceso"
+        class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-b)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal"
+      >
         <div class="wrapper py-4">
           <div class="section-heading max-w-[760px]">
-            <p class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold" data-i18n="process.eyebrow">Método de trabajo</p>
-            <h2 class="m-0 text-[clamp(1.7rem,3.8vw,2.65rem)] leading-[1.09] text-[var(--ink)]" data-i18n="process.headline">Un proceso simple, medible y orientado a resultados</h2>
-            <p class="mt-[0.7rem] mb-0 text-[var(--muted)] max-w-[56ch]" data-i18n="process.lead">
-              Transparencia total, decisiones rápidas y entregas iterativas para sostener crecimiento.
+            <p
+              class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold"
+              data-i18n="process.eyebrow"
+            >
+              Método de trabajo
+            </p>
+            <h2
+              class="m-0 text-[clamp(1.7rem,3.8vw,2.65rem)] leading-[1.09] text-[var(--ink)]"
+              data-i18n="process.headline"
+            >
+              Un proceso simple, medible y orientado a resultados
+            </h2>
+            <p
+              class="mt-[0.7rem] mb-0 text-[var(--muted)] max-w-[56ch]"
+              data-i18n="process.lead"
+            >
+              Transparencia total, decisiones rápidas y entregas iterativas para
+              sostener crecimiento.
             </p>
           </div>
-          <div class="mt-5 grid grid-cols-4 max-[980px]:grid-cols-2 max-[760px]:grid-cols-1 gap-3">
-            <article class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300">
-              <span class="text-[var(--accent)] font-bold text-[0.84rem]">01</span>
-              <h3 class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]" data-i18n="process.step1.title">Discovery</h3>
-              <p class="m-0 text-[var(--muted)]" data-i18n="process.step1.desc">Entendemos objetivos, restricciones y oportunidades para definir una estrategia sólida.</p>
+          <div
+            class="mt-5 grid grid-cols-4 max-[980px]:grid-cols-2 max-[760px]:grid-cols-1 gap-3"
+          >
+            <article
+              class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300"
+            >
+              <span class="text-[var(--accent)] font-bold text-[0.84rem]"
+                >01</span
+              >
+              <h3
+                class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]"
+                data-i18n="process.step1.title"
+              >
+                Discovery
+              </h3>
+              <p class="m-0 text-[var(--muted)]" data-i18n="process.step1.desc">
+                Entendemos objetivos, restricciones y oportunidades para definir
+                una estrategia sólida.
+              </p>
             </article>
-            <article class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300">
-              <span class="text-[var(--accent)] font-bold text-[0.84rem]">02</span>
-              <h3 class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]" data-i18n="process.step2.title">Plan de ejecución</h3>
-              <p class="m-0 text-[var(--muted)]" data-i18n="process.step2.desc">Definimos alcance por fases, stack técnico y prioridades de negocio.</p>
+            <article
+              class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300"
+            >
+              <span class="text-[var(--accent)] font-bold text-[0.84rem]"
+                >02</span
+              >
+              <h3
+                class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]"
+                data-i18n="process.step2.title"
+              >
+                Plan de ejecución
+              </h3>
+              <p class="m-0 text-[var(--muted)]" data-i18n="process.step2.desc">
+                Definimos alcance por fases, stack técnico y prioridades de
+                negocio.
+              </p>
             </article>
-            <article class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300">
-              <span class="text-[var(--accent)] font-bold text-[0.84rem]">03</span>
-              <h3 class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]" data-i18n="process.step3.title">Implementación</h3>
-              <p class="m-0 text-[var(--muted)]" data-i18n="process.step3.desc">Construimos con entregas iterativas, feedback continuo y foco en calidad.</p>
+            <article
+              class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300"
+            >
+              <span class="text-[var(--accent)] font-bold text-[0.84rem]"
+                >03</span
+              >
+              <h3
+                class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]"
+                data-i18n="process.step3.title"
+              >
+                Implementación
+              </h3>
+              <p class="m-0 text-[var(--muted)]" data-i18n="process.step3.desc">
+                Construimos con entregas iterativas, feedback continuo y foco en
+                calidad.
+              </p>
             </article>
-            <article class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300">
-              <span class="text-[var(--accent)] font-bold text-[0.84rem]">04</span>
-              <h3 class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]" data-i18n="process.step4.title">Escalado</h3>
-              <p class="m-0 text-[var(--muted)]" data-i18n="process.step4.desc">Optimizamos conversión, rendimiento y operaciones para sostener crecimiento.</p>
+            <article
+              class="border border-[var(--card-border)] rounded-[18px] bg-[var(--paper)] p-4 transition-[border-color,background] duration-300"
+            >
+              <span class="text-[var(--accent)] font-bold text-[0.84rem]"
+                >04</span
+              >
+              <h3
+                class="mt-[0.42rem] mb-[0.42rem] m-0 text-[var(--ink)]"
+                data-i18n="process.step4.title"
+              >
+                Escalado
+              </h3>
+              <p class="m-0 text-[var(--muted)]" data-i18n="process.step4.desc">
+                Optimizamos conversión, rendimiento y operaciones para sostener
+                crecimiento.
+              </p>
             </article>
           </div>
         </div>
       </section>
 
       <!-- ── Resultados ───────────────────────────────────── -->
-      <section id="resultados" class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-c)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal">
+      <section
+        id="resultados"
+        class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-c)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal"
+      >
         <div class="wrapper py-4">
-          <div class="results-grid grid grid-cols-3 max-[980px]:grid-cols-1 gap-[0.85rem]">
-            <article class="border border-[var(--results-border)] rounded-[18px] bg-[var(--results-bg)] shadow-[0_10px_24px_rgba(16,47,64,0.1)] p-4 transition-[border-color,background] duration-300">
-              <p class="m-0 mb-[0.35rem] text-[var(--brand)] uppercase tracking-[0.11em] text-[0.72rem]" data-i18n="results.article1.label">Operación</p>
-              <p class="m-0 mb-[0.3rem] text-[clamp(1.7rem,3.2vw,2.4rem)] text-[var(--brand-strong)] font-bold" data-i18n="results.article1.value">+120</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="results.article1.title">Sprints ejecutados</h3>
-              <span class="block mt-[0.42rem] text-[var(--muted)]" data-i18n="results.article1.desc">Con equipos de producto y marketing en distintas industrias.</span>
-            </article>
-            <article class="border border-[var(--results-border)] rounded-[18px] bg-[var(--results-bg)] shadow-[0_10px_24px_rgba(16,47,64,0.1)] p-4 transition-[border-color,background] duration-300">
-              <p class="m-0 mb-[0.35rem] text-[var(--brand)] uppercase tracking-[0.11em] text-[0.72rem]" data-i18n="results.article2.label">Eficiencia</p>
-              <p class="m-0 mb-[0.3rem] text-[clamp(1.7rem,3.2vw,2.4rem)] text-[var(--brand-strong)] font-bold" data-i18n="results.article2.value">98%</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="results.article2.title">Entregas a tiempo</h3>
-              <span class="block mt-[0.42rem] text-[var(--muted)]" data-i18n="results.article2.desc">Priorización clara y seguimiento semanal de hitos.</span>
-            </article>
-            <article class="border border-[var(--results-border)] rounded-[18px] bg-[var(--results-bg)] shadow-[0_10px_24px_rgba(16,47,64,0.1)] p-4 transition-[border-color,background] duration-300">
-              <p class="m-0 mb-[0.35rem] text-[var(--brand)] uppercase tracking-[0.11em] text-[0.72rem]" data-i18n="results.article3.label">Atención</p>
-              <p class="m-0 mb-[0.3rem] text-[clamp(1.7rem,3.2vw,2.4rem)] text-[var(--brand-strong)] font-bold" data-i18n="results.article3.value">24h</p>
-              <h3 class="m-0 text-[var(--ink)]" data-i18n="results.article3.title">Tiempo de respuesta</h3>
-              <span class="block mt-[0.42rem] text-[var(--muted)]" data-i18n="results.article3.desc">Atención directa para desbloquear decisiones y avanzar rápido.</span>
-            </article>
+          <div class="section-heading w-full max-w-none mb-6">
+            <p
+              class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold"
+              data-i18n="results.eyebrow"
+            >
+              Proyectos realizados
+            </p>
+            <h2
+              class="m-0 max-w-none text-[clamp(1.7rem,3.8vw,2.65rem)] leading-[1.09] text-[var(--ink)]"
+              data-i18n="results.headline"
+            >
+              Proyectos diseñados para impulsar resultados, eficiencia y
+              crecimiento digital
+            </h2>
+            <p
+              class="mt-[0.7rem] mb-0 max-w-none text-[var(--muted)]"
+              data-i18n="results.lead"
+            >
+              Explora una selección de soluciones creadas con enfoque
+              estratégico, ejecución técnica y una visión clara de negocio para
+              generar impacto medible.
+            </p>
           </div>
+          <ProjectResultsGrid projects={projects} />
         </div>
       </section>
 
       <!-- ── FAQ ─────────────────────────────────────────── -->
-      <section id="faq" class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-a)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal">
+      <section
+        id="faq"
+        class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-a)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal"
+      >
         <div class="wrapper py-4">
           <div class="section-heading max-w-[760px]">
-            <p class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold" data-i18n="faq.eyebrow">Preguntas frecuentes</p>
-            <h2 class="m-0 text-[clamp(1.7rem,3.8vw,2.65rem)] leading-[1.09] text-[var(--ink)]" data-i18n="faq.headline">Resolvemos dudas antes de iniciar</h2>
-            <p class="mt-[0.7rem] mb-0 text-[var(--muted)] max-w-[56ch]" data-i18n="faq.lead">
-              Si necesitas una solución personalizada, adaptamos equipo, alcance y roadmap a tu contexto.
+            <p
+              class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold"
+              data-i18n="faq.eyebrow"
+            >
+              Preguntas frecuentes
+            </p>
+            <h2
+              class="m-0 text-[clamp(1.7rem,3.8vw,2.65rem)] leading-[1.09] text-[var(--ink)]"
+              data-i18n="faq.headline"
+            >
+              Resolvemos dudas antes de iniciar
+            </h2>
+            <p
+              class="mt-[0.7rem] mb-0 text-[var(--muted)] max-w-[56ch]"
+              data-i18n="faq.lead"
+            >
+              Si necesitas una solución personalizada, adaptamos equipo, alcance
+              y roadmap a tu contexto.
             </p>
           </div>
-          <div class="mt-8 grid grid-cols-[1fr_1.2fr] max-[980px]:grid-cols-1 gap-12 items-center">
+          <div
+            class="mt-8 grid grid-cols-[1fr_1.2fr] max-[980px]:grid-cols-1 gap-12 items-center"
+          >
             <figure class="m-0 flex items-center justify-center">
-              <img src={faqIllustration.src} alt="Preguntas frecuentes" class="faq-illustration-img w-full max-w-[420px] h-auto transition-[filter] duration-[400ms]" width="480" height="480" loading="lazy" style="animation:heroIllustrationFloat 6s ease-in-out infinite" />
+              <img
+                src={faqIllustration.src}
+                alt="Preguntas frecuentes"
+                class="faq-illustration-img w-full max-w-[420px] h-auto transition-[filter] duration-[400ms]"
+                width="480"
+                height="480"
+                loading="lazy"
+                style="animation:heroIllustrationFloat 6s ease-in-out infinite"
+              />
             </figure>
             <div class="faq-accordion flex flex-col gap-2" id="faq-accordion">
-              <div class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]">
-                <button class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200" aria-expanded="false">
-                  <span data-i18n="faq.q1.title">¿Qué tipo de proyectos toman?</span>
-                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <div
+                class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]"
+              >
+                <button
+                  class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200"
+                  aria-expanded="false"
+                >
+                  <span data-i18n="faq.q1.title"
+                    >¿Qué tipo de proyectos toman?</span
+                  >
+                  <svg
+                    class="faq-chevron"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><polyline points="6 9 12 15 18 9"></polyline></svg
+                  >
                 </button>
                 <div class="faq-panel" role="region">
-                  <div class="faq-panel-inner"><p class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]" data-i18n="faq.q1.desc">Desde landing pages y MVPs hasta optimización de operaciones digitales y cloud.</p></div>
+                  <div class="faq-panel-inner">
+                    <p
+                      class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]"
+                      data-i18n="faq.q1.desc"
+                    >
+                      Desde landing pages y MVPs hasta optimización de
+                      operaciones digitales y cloud.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]">
-                <button class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200" aria-expanded="false">
-                  <span data-i18n="faq.q2.title">¿Trabajan con equipos internos?</span>
-                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <div
+                class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]"
+              >
+                <button
+                  class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200"
+                  aria-expanded="false"
+                >
+                  <span data-i18n="faq.q2.title"
+                    >¿Trabajan con equipos internos?</span
+                  >
+                  <svg
+                    class="faq-chevron"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><polyline points="6 9 12 15 18 9"></polyline></svg
+                  >
                 </button>
                 <div class="faq-panel" role="region">
-                  <div class="faq-panel-inner"><p class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]" data-i18n="faq.q2.desc">Sí. Nos integramos con tu equipo para acelerar sin fricción ni sobrecarga.</p></div>
+                  <div class="faq-panel-inner">
+                    <p
+                      class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]"
+                      data-i18n="faq.q2.desc"
+                    >
+                      Sí. Nos integramos con tu equipo para acelerar sin
+                      fricción ni sobrecarga.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]">
-                <button class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200" aria-expanded="false">
+              <div
+                class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]"
+              >
+                <button
+                  class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200"
+                  aria-expanded="false"
+                >
                   <span data-i18n="faq.q3.title">¿Cómo miden el avance?</span>
-                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  <svg
+                    class="faq-chevron"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><polyline points="6 9 12 15 18 9"></polyline></svg
+                  >
                 </button>
                 <div class="faq-panel" role="region">
-                  <div class="faq-panel-inner"><p class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]" data-i18n="faq.q3.desc">Definimos KPIs y entregables por sprint con visibilidad total del estado del proyecto.</p></div>
+                  <div class="faq-panel-inner">
+                    <p
+                      class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]"
+                      data-i18n="faq.q3.desc"
+                    >
+                      Definimos KPIs y entregables por sprint con visibilidad
+                      total del estado del proyecto.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]">
-                <button class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200" aria-expanded="false">
+              <div
+                class="faq-item border border-[var(--card-border)] rounded-[14px] bg-[var(--paper)] overflow-hidden transition-[border-color,background,box-shadow] duration-[250ms]"
+              >
+                <button
+                  class="faq-btn w-full flex justify-between items-center gap-4 px-[1.3rem] py-[1.1rem] bg-transparent border-none cursor-pointer text-[var(--ink)] font-semibold text-[1rem] text-left leading-[1.4] hover:text-[var(--brand)] transition-colors duration-200"
+                  aria-expanded="false"
+                >
                   <span data-i18n="faq.q4.title">¿Cuánto tarda iniciar?</span>
-                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  <svg
+                    class="faq-chevron"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><polyline points="6 9 12 15 18 9"></polyline></svg
+                  >
                 </button>
                 <div class="faq-panel" role="region">
-                  <div class="faq-panel-inner"><p class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]" data-i18n="faq.q4.desc">Podemos iniciar discovery en menos de 5 días hábiles luego del alineamiento inicial.</p></div>
+                  <div class="faq-panel-inner">
+                    <p
+                      class="m-0 px-[1.3rem] pb-[1.15rem] text-[var(--muted)] leading-[1.7] text-[0.95rem]"
+                      data-i18n="faq.q4.desc"
+                    >
+                      Podemos iniciar discovery en menos de 5 días hábiles luego
+                      del alineamiento inicial.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -307,66 +752,190 @@ const i18n = { es, en };
       </section>
 
       <!-- ── Contacto ─────────────────────────────────────── -->
-      <section id="contacto" class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-b)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal">
+      <section
+        id="contacto"
+        class="flex items-center min-h-[100svh] max-[980px]:min-h-0 py-20 max-[980px]:py-[4.1rem] bg-[var(--tone-b)] transition-[background] duration-[400ms] scroll-mt-[74px] reveal"
+      >
         <div class="wrapper py-4">
-          <div class="grid grid-cols-[1fr_1.05fr] max-[980px]:grid-cols-1 gap-14 items-start">
-
+          <div
+            class="grid grid-cols-[1fr_1.05fr] max-[980px]:grid-cols-1 gap-14 items-start"
+          >
             <!-- Left: Trust panel -->
             <div class="contact-trust">
-              <p class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold" data-i18n="contact.eyebrow">Hablemos de tu proyecto</p>
-              <h2 class="m-0 mb-3 text-[clamp(1.5rem,3vw,2rem)] leading-[1.15] text-[var(--ink)]" data-i18n="contact.headline">Convierte tus objetivos en una hoja de ruta accionable</h2>
-              <p class="m-0 mb-7 text-[var(--muted)] leading-[1.65]" data-i18n="contact.trust.lead">Respondemos en menos de 24h con un plan claro, sin compromisos y sin letra chica.</p>
+              <p
+                class="m-0 mb-3 text-[var(--brand)] text-[0.73rem] uppercase tracking-[0.15em] font-bold"
+                data-i18n="contact.eyebrow"
+              >
+                Hablemos de tu proyecto
+              </p>
+              <h2
+                class="m-0 mb-3 text-[clamp(1.5rem,3vw,2rem)] leading-[1.15] text-[var(--ink)]"
+                data-i18n="contact.headline"
+              >
+                Convierte tus objetivos en una hoja de ruta accionable
+              </h2>
+              <p
+                class="m-0 mb-7 text-[var(--muted)] leading-[1.65]"
+                data-i18n="contact.trust.lead"
+              >
+                Respondemos en menos de 24h con un plan claro, sin compromisos y
+                sin letra chica.
+              </p>
               <ul class="list-none p-0 m-0 mb-8 flex flex-col gap-[0.85rem]">
-                <li class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]">
-                  <span class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]" aria-hidden="true">
-                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><polyline points="6.5,10.5 9,13 13.5,7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <li
+                  class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]"
+                >
+                  <span
+                    class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"
+                      ><circle
+                        cx="10"
+                        cy="10"
+                        r="9"
+                        stroke="currentColor"
+                        stroke-width="1.5"></circle><polyline
+                        points="6.5,10.5 9,13 13.5,7.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></polyline></svg
+                    >
                   </span>
-                  <span data-i18n="contact.trust.point1">Respuesta en menos de 24 horas hábiles</span>
+                  <span data-i18n="contact.trust.point1"
+                    >Respuesta en menos de 24 horas hábiles</span
+                  >
                 </li>
-                <li class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]">
-                  <span class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]" aria-hidden="true">
-                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><polyline points="6.5,10.5 9,13 13.5,7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <li
+                  class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]"
+                >
+                  <span
+                    class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"
+                      ><circle
+                        cx="10"
+                        cy="10"
+                        r="9"
+                        stroke="currentColor"
+                        stroke-width="1.5"></circle><polyline
+                        points="6.5,10.5 9,13 13.5,7.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></polyline></svg
+                    >
                   </span>
-                  <span data-i18n="contact.trust.point2">Garantía de 30 días incluida</span>
+                  <span data-i18n="contact.trust.point2"
+                    >Garantía de 30 días incluida</span
+                  >
                 </li>
-                <li class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]">
-                  <span class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]" aria-hidden="true">
-                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><polyline points="6.5,10.5 9,13 13.5,7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <li
+                  class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]"
+                >
+                  <span
+                    class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"
+                      ><circle
+                        cx="10"
+                        cy="10"
+                        r="9"
+                        stroke="currentColor"
+                        stroke-width="1.5"></circle><polyline
+                        points="6.5,10.5 9,13 13.5,7.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></polyline></svg
+                    >
                   </span>
-                  <span data-i18n="contact.trust.point3">Sin contratos eternos · decides cuándo parar</span>
+                  <span data-i18n="contact.trust.point3"
+                    >Sin contratos eternos · decides cuándo parar</span
+                  >
                 </li>
-                <li class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]">
-                  <span class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]" aria-hidden="true">
-                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><polyline points="6.5,10.5 9,13 13.5,7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <li
+                  class="flex items-start gap-[0.7rem] text-[0.95rem] leading-[1.4] text-[var(--ink)]"
+                >
+                  <span
+                    class="shrink-0 w-5 h-5 mt-[0.05rem] text-[var(--brand)]"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 20 20" fill="none" class="w-full h-full"
+                      ><circle
+                        cx="10"
+                        cy="10"
+                        r="9"
+                        stroke="currentColor"
+                        stroke-width="1.5"></circle><polyline
+                        points="6.5,10.5 9,13 13.5,7.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></polyline></svg
+                    >
                   </span>
-                  <span data-i18n="contact.trust.point4">Trato directo, sin intermediarios</span>
+                  <span data-i18n="contact.trust.point4"
+                    >Trato directo, sin intermediarios</span
+                  >
                 </li>
               </ul>
-              <div class="flex flex-col gap-[0.3rem] text-[0.82rem] text-[var(--muted)] pt-6 border-t border-[var(--card-border)]">
-                <span data-i18n="contact.trust.emailCta">O escríbenos directamente</span>
-                <a href="mailto:hola@intelliaworks.com" class="text-[var(--brand)] font-semibold text-[0.95rem] hover:opacity-75 hover:underline transition-opacity duration-200">hola@intelliaworks.com</a>
+              <div
+                class="flex flex-col gap-[0.3rem] text-[0.82rem] text-[var(--muted)] pt-6 border-t border-[var(--card-border)]"
+              >
+                <span data-i18n="contact.trust.emailCta"
+                  >O escríbenos directamente</span
+                >
+                <a
+                  href="mailto:hola@intellia.dev"
+                  class="text-[var(--brand)] font-semibold text-[0.95rem] hover:opacity-75 hover:underline transition-opacity duration-200"
+                  >hola@intellia.dev</a
+                >
               </div>
             </div>
 
             <!-- Right: Form panel -->
-            <div class="border border-[var(--lead-border)] rounded-[20px] p-7 bg-[var(--lead-bg)] shadow-[var(--shadow)] transition-[border-color,background] duration-300">
+            <div
+              class="border border-[var(--lead-border)] rounded-[20px] p-7 bg-[var(--lead-bg)] shadow-[var(--shadow)] transition-[border-color,background] duration-300"
+            >
               <form id="lead-form" class="grid gap-3">
                 <div class="grid grid-cols-2 max-[980px]:grid-cols-1 gap-3">
                   <label class="grid gap-[0.35rem]">
-                    <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.name">Nombre completo</span>
-                    <input name="name" type="text" required
+                    <span
+                      class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]"
+                      data-i18n="contact.form.name">Nombre completo</span
+                    >
+                    <input
+                      name="name"
+                      type="text"
+                      required
                       class="w-full border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] px-[0.72rem] py-[0.72rem] font-[inherit] text-[1rem] transition-[border-color,background,color] duration-200"
-                      data-i18n-placeholder="contact.form.namePlaceholder" />
+                      data-i18n-placeholder="contact.form.namePlaceholder"
+                    />
                   </label>
                   <label class="grid gap-[0.35rem]">
-                    <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.email">Correo electrónico</span>
-                    <input name="email" type="email" required
+                    <span
+                      class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]"
+                      data-i18n="contact.form.email">Correo electrónico</span
+                    >
+                    <input
+                      name="email"
+                      type="email"
+                      required
                       class="w-full border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] px-[0.72rem] py-[0.72rem] font-[inherit] text-[1rem] transition-[border-color,background,color] duration-200"
-                      data-i18n-placeholder="contact.form.emailPlaceholder" />
+                      data-i18n-placeholder="contact.form.emailPlaceholder"
+                    />
                   </label>
                 </div>
                 <div class="grid gap-[0.35rem]">
-                  <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.service" id="service-label">¿En qué podemos ayudarte?</span>
+                  <span
+                    class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]"
+                    data-i18n="contact.form.service"
+                    id="service-label">¿En qué podemos ayudarte?</span
+                  >
                   <div class="relative" id="service-dropdown">
                     <!-- Hidden input carries value in FormData -->
                     <input type="hidden" name="service" id="service-value" />
@@ -381,9 +950,29 @@ const i18n = { es, en };
                       aria-labelledby="service-label service-display"
                       class="w-full flex items-center justify-between gap-2 border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] pl-[0.72rem] pr-[0.72rem] py-[0.72rem] font-[inherit] text-[1rem] text-left cursor-pointer transition-[border-color,box-shadow] duration-200"
                     >
-                      <span id="service-display" class="pointer-events-none text-[var(--muted)]" data-i18n="contact.form.serviceDefault">Selecciona un servicio</span>
-                      <span id="service-chevron" class="pointer-events-none shrink-0 text-[var(--muted)] transition-transform duration-200" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                      <span
+                        id="service-display"
+                        class="pointer-events-none text-[var(--muted)]"
+                        data-i18n="contact.form.serviceDefault"
+                        >Selecciona un servicio</span
+                      >
+                      <span
+                        id="service-chevron"
+                        class="pointer-events-none shrink-0 text-[var(--muted)] transition-transform duration-200"
+                        aria-hidden="true"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          ><path d="m6 9 6 6 6-6"></path></svg
+                        >
                       </span>
                     </button>
                     <!-- Listbox -->
@@ -393,86 +982,370 @@ const i18n = { es, en };
                       aria-labelledby="service-label"
                       class="service-listbox absolute z-50 top-[calc(100%+6px)] left-0 right-0 bg-[var(--paper)] border border-[var(--line)] rounded-[12px] shadow-[var(--shadow)] overflow-hidden py-[0.3rem]"
                     >
-                      <li role="option" aria-selected="false" data-value="" class="service-option px-[0.9rem] py-[0.5rem] text-[0.88rem] text-[var(--muted)] italic cursor-default select-none" data-i18n="contact.form.serviceDefault">Selecciona un servicio</li>
-                      <li class="mx-[0.4rem] h-px bg-[var(--line)]" role="separator" aria-hidden="true"></li>
-                      <li role="option" aria-selected="false" data-value="desarrollo" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
-                        <span class="icon-badge icon-badge-dev" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
-                        <span class="service-option-label" data-i18n="contact.form.service1">Desarrollo web</span>
-                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      <li
+                        role="option"
+                        aria-selected="false"
+                        data-value=""
+                        class="service-option px-[0.9rem] py-[0.5rem] text-[0.88rem] text-[var(--muted)] italic cursor-default select-none"
+                        data-i18n="contact.form.serviceDefault"
+                      >
+                        Selecciona un servicio
                       </li>
-                      <li role="option" aria-selected="false" data-value="gestion-proyectos" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
-                        <span class="icon-badge icon-badge-pm" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17h7M17.5 14v7"/></svg></span>
-                        <span class="service-option-label" data-i18n="contact.form.service2">Gestión de proyectos</span>
-                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      <li
+                        class="mx-[0.4rem] h-px bg-[var(--line)]"
+                        role="separator"
+                        aria-hidden="true"
+                      >
                       </li>
-                      <li role="option" aria-selected="false" data-value="marketing" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
-                        <span class="icon-badge icon-badge-mkt" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
-                        <span class="service-option-label" data-i18n="contact.form.service3">Marketing y automatización</span>
-                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      <li
+                        role="option"
+                        aria-selected="false"
+                        data-value="desarrollo"
+                        class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150"
+                      >
+                        <span
+                          class="icon-badge icon-badge-dev"
+                          aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="16 18 22 12 16 6"
+                            ></polyline><polyline points="8 6 2 12 8 18"
+                            ></polyline></svg
+                          ></span
+                        >
+                        <span
+                          class="service-option-label"
+                          data-i18n="contact.form.service1">Desarrollo web</span
+                        >
+                        <span class="service-check ml-auto" aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="20 6 9 17 4 12"></polyline></svg
+                          ></span
+                        >
                       </li>
-                      <li role="option" aria-selected="false" data-value="cloud" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
-                        <span class="icon-badge icon-badge-cloud" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg></span>
-                        <span class="service-option-label" data-i18n="contact.form.service4">Cloud y DevOps</span>
-                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      <li
+                        role="option"
+                        aria-selected="false"
+                        data-value="gestion-proyectos"
+                        class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150"
+                      >
+                        <span
+                          class="icon-badge icon-badge-pm"
+                          aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><rect x="3" y="3" width="7" height="7" rx="1"
+                            ></rect><rect
+                              x="14"
+                              y="3"
+                              width="7"
+                              height="7"
+                              rx="1"></rect><rect
+                              x="3"
+                              y="14"
+                              width="7"
+                              height="7"
+                              rx="1"></rect><path d="M14 17h7M17.5 14v7"
+                            ></path></svg
+                          ></span
+                        >
+                        <span
+                          class="service-option-label"
+                          data-i18n="contact.form.service2"
+                          >Gestión de proyectos</span
+                        >
+                        <span class="service-check ml-auto" aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="20 6 9 17 4 12"></polyline></svg
+                          ></span
+                        >
                       </li>
-                      <li role="option" aria-selected="false" data-value="qa" class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150">
-                        <span class="icon-badge icon-badge-qa" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
-                        <span class="service-option-label" data-i18n="contact.form.service5">QA y calidad</span>
-                        <span class="service-check ml-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      <li
+                        role="option"
+                        aria-selected="false"
+                        data-value="marketing"
+                        class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150"
+                      >
+                        <span
+                          class="icon-badge icon-badge-mkt"
+                          aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"
+                            ></polyline><polyline points="16 7 22 7 22 13"
+                            ></polyline></svg
+                          ></span
+                        >
+                        <span
+                          class="service-option-label"
+                          data-i18n="contact.form.service3"
+                          >Marketing y automatización</span
+                        >
+                        <span class="service-check ml-auto" aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="20 6 9 17 4 12"></polyline></svg
+                          ></span
+                        >
+                      </li>
+                      <li
+                        role="option"
+                        aria-selected="false"
+                        data-value="cloud"
+                        class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150"
+                      >
+                        <span
+                          class="icon-badge icon-badge-cloud"
+                          aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path
+                              d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"
+                            ></path></svg
+                          ></span
+                        >
+                        <span
+                          class="service-option-label"
+                          data-i18n="contact.form.service4">Cloud y DevOps</span
+                        >
+                        <span class="service-check ml-auto" aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="20 6 9 17 4 12"></polyline></svg
+                          ></span
+                        >
+                      </li>
+                      <li
+                        role="option"
+                        aria-selected="false"
+                        data-value="qa"
+                        class="service-option flex items-center gap-[0.75rem] px-[0.75rem] py-[0.55rem] cursor-pointer rounded-[8px] mx-[0.25rem] transition-[background,color,box-shadow] duration-150"
+                      >
+                        <span
+                          class="icon-badge icon-badge-qa"
+                          aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path
+                              d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                            ></path><polyline points="9 12 11 14 15 10"
+                            ></polyline></svg
+                          ></span
+                        >
+                        <span
+                          class="service-option-label"
+                          data-i18n="contact.form.service5">QA y calidad</span
+                        >
+                        <span class="service-check ml-auto" aria-hidden="true"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="20 6 9 17 4 12"></polyline></svg
+                          ></span
+                        >
                       </li>
                     </ul>
                   </div>
                 </div>
                 <label class="grid gap-[0.35rem]">
-                  <span class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]" data-i18n="contact.form.message">Cuéntanos sobre tu proyecto</span>
-                  <textarea name="message" rows="4" required
+                  <span
+                    class="text-[0.75rem] font-bold uppercase tracking-[0.07em] text-[var(--muted)]"
+                    data-i18n="contact.form.message"
+                    >Cuéntanos sobre tu proyecto</span
+                  >
+                  <textarea
+                    name="message"
+                    rows="4"
+                    required
                     class="w-full border border-[var(--input-border)] rounded-[10px] bg-[var(--input-bg)] text-[var(--ink)] px-[0.72rem] py-[0.72rem] font-[inherit] text-[1rem] min-h-[120px] resize-y transition-[border-color,background,color] duration-200"
-                    data-i18n-placeholder="contact.form.messagePlaceholder"></textarea>
+                    data-i18n-placeholder="contact.form.messagePlaceholder"
+                  ></textarea>
                 </label>
                 <label class="hidden" aria-hidden="true">
                   <span>Empresa</span>
-                  <input name="company" type="text" autocomplete="off" tabindex="-1" />
+                  <input
+                    name="company"
+                    type="text"
+                    autocomplete="off"
+                    tabindex="-1"
+                  />
                 </label>
-                <input type="hidden" name="submittedAt" id="submittedAt" value="" />
-                <button type="submit" class="btn-primary w-full inline-flex items-center justify-center rounded-xl px-[1.12rem] py-[0.78rem] text-[0.94rem] font-bold border border-transparent mt-1 hover:-translate-y-0.5 transition-[transform,box-shadow,background] duration-200 cursor-pointer" data-i18n="contact.form.submit">Enviar consulta</button>
-                <p class="m-0 min-h-[1.2rem] text-[var(--muted)]" id="status"></p>
+                <input
+                  type="hidden"
+                  name="captchaToken"
+                  id="captcha-token"
+                  value=""
+                />
+                <input
+                  type="hidden"
+                  name="submittedAt"
+                  id="submittedAt"
+                  value=""
+                />
+                {
+                  recaptchaSiteKey && (
+                    <div class="grid gap-[0.45rem]">
+                      <div
+                        id="recaptcha-widget"
+                        class="min-h-[78px] flex justify-center"
+                      />
+                    </div>
+                  )
+                }
+                <button
+                  type="submit"
+                  id="submit-btn"
+                  disabled
+                  class="btn-primary w-full inline-flex items-center justify-center rounded-xl px-[1.12rem] py-[0.78rem] text-[0.94rem] font-bold border border-transparent mt-1 hover:-translate-y-0.5 transition-[transform,box-shadow,background,color] duration-200 cursor-pointer disabled:cursor-not-allowed disabled:pointer-events-none"
+                  data-i18n="contact.form.submit">Enviar mensaje</button
+                >
+                <p class="m-0 min-h-[1.2rem] text-[var(--muted)]" id="status">
+                </p>
               </form>
             </div>
-
           </div>
         </div>
       </section>
 
       <!-- ── Footer ──────────────────────────────────────── -->
       <footer class="w-[min(1120px,90vw)] mx-auto pt-0 pb-11">
-        <div class="flex items-center justify-between gap-6 border-t border-[var(--footer-border)] pt-6 flex-wrap transition-[border-color] duration-300">
-          <a href="#inicio" class="inline-flex opacity-85 hover:opacity-100 transition-opacity duration-200">
-            <img src={logo.src}      alt="IntelliaWorks" class="footer-logo logo-dark  h-8 w-auto block" width="140" height="32" />
-            <img src={logoLight.src} alt="IntelliaWorks" class="footer-logo logo-light h-8 w-auto"       width="140" height="32" />
+        <div
+          class="flex items-center justify-between gap-6 border-t border-[var(--footer-border)] pt-6 flex-wrap transition-[border-color] duration-300"
+        >
+          <a
+            href="#inicio"
+            class="inline-flex opacity-85 hover:opacity-100 transition-opacity duration-200"
+          >
+            <img
+              src={logo.src}
+              alt="IntelliaWorks"
+              class="footer-logo logo-dark h-8 w-auto block"
+              width="140"
+              height="32"
+            />
+            <img
+              src={logoLight.src}
+              alt="IntelliaWorks"
+              class="footer-logo logo-light h-8 w-auto"
+              width="140"
+              height="32"
+            />
           </a>
           <nav class="flex items-center gap-5 flex-wrap">
             <NavLinks variant="footer" />
           </nav>
         </div>
-        <p class="mt-3 text-[var(--muted)] text-[0.875rem] text-center w-full m-0">&copy; {new Date().getFullYear()} IntelliaWorks. <span data-i18n="footer.rights">Todos los derechos reservados.</span></p>
+        <p
+          class="mt-3 text-[var(--muted)] text-[0.875rem] text-center w-full m-0"
+        >
+          &copy; {new Date().getFullYear()} IntelliaWorks. <span
+            data-i18n="footer.rights">Todos los derechos reservados.</span>
+        </p>
       </footer>
     </main>
 
     <script>
+      // @ts-nocheck
+      const recaptchaSiteKey = document.body.dataset.recaptchaSiteKey ?? "";
+
       // --- Custom smooth scroll: ease-in-out cubic (slow → fast → slow) ---
-      function easeInOut(t: number) {
+      function easeInOut(t) {
         return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       }
 
-      function smoothScrollTo(targetY: number) {
+      function smoothScrollTo(targetY) {
         const startY = window.scrollY;
         const distance = targetY - startY;
         if (Math.abs(distance) < 2) return;
         // Duration proportional to distance, clamped 380ms–750ms
-        const duration = Math.min(750, Math.max(380, Math.abs(distance) * 0.22));
+        const duration = Math.min(
+          750,
+          Math.max(380, Math.abs(distance) * 0.22),
+        );
         const startTime = performance.now();
 
-        function step(now: number) {
+        function step(now) {
           const elapsed = now - startTime;
           const progress = Math.min(elapsed / duration, 1);
           window.scrollTo(0, startY + distance * easeInOut(progress));
@@ -483,14 +1356,19 @@ const i18n = { es, en };
 
       // Intercept all internal anchor clicks
       document.addEventListener("click", (e) => {
-        const anchor = (e.target as Element).closest("a[href^='#']") as HTMLAnchorElement | null;
+        const source = e.target;
+        if (!(source instanceof Element)) return;
+        const anchor = source.closest("a[href^='#']");
         if (!anchor) return;
-        const id = anchor.getAttribute("href")!.slice(1);
+        const href = anchor.getAttribute("href");
+        if (!href) return;
+        const id = href.slice(1);
         const target = id ? document.getElementById(id) : null;
         if (!target) return;
         e.preventDefault();
         const headerOffset = 74;
-        const targetY = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+        const targetY =
+          target.getBoundingClientRect().top + window.scrollY - headerOffset;
         smoothScrollTo(targetY);
         // Update hash without jumping
         history.pushState(null, "", `#${id}`);
@@ -498,8 +1376,8 @@ const i18n = { es, en };
       // --- fin custom scroll ---
 
       // --- Scroll down / scroll top ---
-      const scrollTopBtn = document.querySelector("#scroll-top") as HTMLButtonElement;
-      const scrollDownBtn = document.querySelector("#scroll-down") as HTMLAnchorElement;
+      const scrollTopBtn = document.querySelector("#scroll-top");
+      const scrollDownBtn = document.querySelector("#scroll-down");
 
       if ("scrollRestoration" in history) {
         history.scrollRestoration = "manual";
@@ -524,10 +1402,22 @@ const i18n = { es, en };
         const shift = Math.min(y * 0.16, 220);
 
         document.documentElement.style.setProperty("--bg-shift", `${shift}px`);
-        document.documentElement.style.setProperty("--orb-a-y", `${Math.min(y * 0.55, 900)}px`);
-        document.documentElement.style.setProperty("--orb-b-y", `${Math.min(y * 0.82, 1300)}px`);
-        document.documentElement.style.setProperty("--orb-a-x", `${Math.sin(y * 0.0032) * 74}px`);
-        document.documentElement.style.setProperty("--orb-b-x", `${Math.sin(y * 0.0027 + 1.1) * -92}px`);
+        document.documentElement.style.setProperty(
+          "--orb-a-y",
+          `${Math.min(y * 0.55, 900)}px`,
+        );
+        document.documentElement.style.setProperty(
+          "--orb-b-y",
+          `${Math.min(y * 0.82, 1300)}px`,
+        );
+        document.documentElement.style.setProperty(
+          "--orb-a-x",
+          `${Math.sin(y * 0.0032) * 74}px`,
+        );
+        document.documentElement.style.setProperty(
+          "--orb-b-x",
+          `${Math.sin(y * 0.0027 + 1.1) * -92}px`,
+        );
       };
 
       updateScrollButtons();
@@ -555,20 +1445,27 @@ const i18n = { es, en };
       // --- fin scroll ---
 
       // --- Active nav link on scroll ---
-      const navLinkEls = document.querySelectorAll<HTMLAnchorElement>("#main-nav a.nav-link");
-      const sectionIds = Array.from(navLinkEls).map((a) => a.dataset.section!).filter(Boolean);
+      const navLinkEls = document.querySelectorAll("#main-nav a.nav-link");
+      const sectionIds = Array.from(navLinkEls)
+        .map((a) => a.dataset.section)
+        .filter(Boolean);
       // Also observe #inicio so we can clear the active state when there
       const allObservedIds = ["inicio", ...sectionIds];
-      const allObservedEls = allObservedIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+      const allObservedEls = allObservedIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
 
       let activeSection = "";
 
-      const setActive = (id: string) => {
+      const setActive = (id) => {
         if (id === activeSection) return;
         activeSection = id;
         // If #inicio is active, clear all; otherwise highlight the matching link
         navLinkEls.forEach((a) => {
-          a.classList.toggle("nav-active", id !== "inicio" && a.dataset.section === id);
+          a.classList.toggle(
+            "nav-active",
+            id !== "inicio" && a.dataset.section === id,
+          );
         });
       };
 
@@ -579,7 +1476,7 @@ const i18n = { es, en };
             .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
           if (visible.length) setActive(visible[0].target.id);
         },
-        { threshold: [0.25, 0.5], rootMargin: "-10% 0px -10% 0px" }
+        { threshold: [0.25, 0.5], rootMargin: "-10% 0px -10% 0px" },
       );
 
       allObservedEls.forEach((s) => sectionObserver.observe(s));
@@ -601,7 +1498,7 @@ const i18n = { es, en };
         });
       });
 
-      const revealNodes = document.querySelectorAll<HTMLElement>(".reveal");
+      const revealNodes = document.querySelectorAll(".reveal");
       const revealItemGroups = [
         ".hero-copy > *",
         ".hero-showcase > *",
@@ -611,18 +1508,21 @@ const i18n = { es, en };
         ".results-grid article",
         ".faq-item",
         ".contact-trust > *",
-        "#lead-form > *"
+        "#lead-form > *",
       ];
 
       revealNodes.forEach((section) => {
         const stagedItems = revealItemGroups.flatMap((selector) =>
-          Array.from(section.querySelectorAll<HTMLElement>(selector))
+          Array.from(section.querySelectorAll(selector)),
         );
         const uniqueItems = Array.from(new Set(stagedItems));
 
         uniqueItems.forEach((item, index) => {
           item.classList.add("reveal-item");
-          item.style.setProperty("--reveal-delay", `${Math.min(index * 120, 1400)}ms`);
+          item.style.setProperty(
+            "--reveal-delay",
+            `${Math.min(index * 120, 1400)}ms`,
+          );
         });
       });
 
@@ -635,21 +1535,24 @@ const i18n = { es, en };
             }
           });
         },
-        { threshold: 0.22, rootMargin: "0px 0px -12% 0px" }
+        { threshold: 0.22, rootMargin: "0px 0px -12% 0px" },
       );
 
       revealNodes.forEach((node) => observer.observe(node));
 
       // ── FAQ Accordion ────────────────────────────────────────
       const faqAccordion = document.getElementById("faq-accordion");
-      faqAccordion?.querySelectorAll<HTMLElement>(".faq-item").forEach((item) => {
-        const btn = item.querySelector<HTMLButtonElement>(".faq-btn");
+      faqAccordion?.querySelectorAll(".faq-item").forEach((item) => {
+        const btn = item.querySelector(".faq-btn");
         btn?.addEventListener("click", () => {
           const isOpen = item.classList.contains("open");
           // Close all
           faqAccordion.querySelectorAll(".faq-item").forEach((el) => {
             el.classList.remove("open");
-            el.querySelector(".faq-btn")?.setAttribute("aria-expanded", "false");
+            el.querySelector(".faq-btn")?.setAttribute(
+              "aria-expanded",
+              "false",
+            );
           });
           // Open clicked if it was closed
           if (!isOpen) {
@@ -659,15 +1562,121 @@ const i18n = { es, en };
         });
       });
 
-      const form = document.querySelector<HTMLFormElement>("#lead-form");
-      const status = document.querySelector<HTMLElement>("#status");
-      const submittedAtInput = document.querySelector<HTMLInputElement>("#submittedAt");
+      const form = document.querySelector("#lead-form");
+      const status = document.querySelector("#status");
+      const submittedAtInput = document.querySelector("#submittedAt");
+      const captchaTokenInput = document.querySelector("#captcha-token");
+      const recaptchaWidgetEl = document.querySelector("#recaptcha-widget");
+      const submitBtn = document.querySelector("#submit-btn");
+
+      const checkFormValidity = () => {
+        const nameVal = form?.querySelector('[name="name"]')?.value?.trim() ?? "";
+        const emailVal = form?.querySelector('[name="email"]')?.value?.trim() ?? "";
+        const serviceVal = document.getElementById("service-value")?.value ?? "";
+        const messageVal = form?.querySelector('[name="message"]')?.value?.trim() ?? "";
+        const captchaOk = !recaptchaSiteKey || !!(captchaTokenInput?.value);
+        const allFilled = !!(nameVal && emailVal && serviceVal && messageVal && captchaOk);
+        if (submitBtn) submitBtn.disabled = !allFilled;
+      };
+
+      form?.querySelector('[name="name"]')?.addEventListener("input", checkFormValidity);
+      form?.querySelector('[name="email"]')?.addEventListener("input", checkFormValidity);
+      form?.querySelector('[name="message"]')?.addEventListener("input", checkFormValidity);
+
+      let recaptchaWidgetId = null;
+      let recaptchaInitAttempts = 0;
+
+      const resetRecaptcha = () => {
+        captchaTokenInput && (captchaTokenInput.value = "");
+        if (recaptchaWidgetId !== null && window.grecaptcha?.reset) {
+          window.grecaptcha.reset(recaptchaWidgetId);
+        }
+      };
+
+      const renderRecaptcha = (theme) => {
+        if (!recaptchaSiteKey || !recaptchaWidgetEl || !window.grecaptcha?.render) return;
+        if (recaptchaWidgetEl) recaptchaWidgetEl.innerHTML = "";
+        recaptchaWidgetId = null;
+        if (captchaTokenInput) captchaTokenInput.value = "";
+        recaptchaWidgetId = window.grecaptcha.render(recaptchaWidgetEl, {
+          sitekey: recaptchaSiteKey,
+          theme,
+          callback: (token) => {
+            if (captchaTokenInput) captchaTokenInput.value = token;
+            checkFormValidity();
+          },
+          "expired-callback": () => {
+            if (captchaTokenInput) captchaTokenInput.value = "";
+            checkFormValidity();
+          },
+          "error-callback": () => {
+            if (captchaTokenInput) captchaTokenInput.value = "";
+            checkFormValidity();
+          },
+        });
+      };
+
+      const initRecaptcha = () => {
+        if (
+          !recaptchaSiteKey ||
+          !recaptchaWidgetEl ||
+          recaptchaWidgetId !== null
+        )
+          return;
+
+        const grecaptcha = window.grecaptcha;
+        if (!grecaptcha?.render) {
+          if (recaptchaInitAttempts < 30) {
+            recaptchaInitAttempts += 1;
+            window.setTimeout(initRecaptcha, 300);
+          }
+          return;
+        }
+
+        const theme =
+          document.documentElement.getAttribute("data-theme") === "dark"
+            ? "dark"
+            : "light";
+        renderRecaptcha(theme);
+      };
+
+      initRecaptcha();
+
+      // Re-render reCAPTCHA once the View Transition animation fully ends.
+      // We watch for the removal of the 'theme-switching' class (added at
+      // transition start, removed in anim.finish) so there is no fixed timeout
+      // and the widget is never wiped while the snapshot is active.
+      // CSS already hides the widget during the transition (html.theme-switching #recaptcha-widget).
+      if (recaptchaSiteKey && recaptchaWidgetEl) {
+        new MutationObserver((mutations) => {
+          for (const m of mutations) {
+            if (
+              m.attributeName === "class" &&
+              !document.documentElement.classList.contains("theme-switching")
+            ) {
+              const theme =
+                document.documentElement.getAttribute("data-theme") === "dark"
+                  ? "dark"
+                  : "light";
+              renderRecaptcha(theme);
+              checkFormValidity();
+              break;
+            }
+          }
+        }).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
+      }
 
       form?.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const t = (key: string) => {
-          const lang = (window as any).__currentLang__ || "es";
-          return key.split(".").reduce((o: any, k) => o?.[k], (window as any).__i18n__?.[lang]) ?? key;
+        const t = (key) => {
+          const lang = window.__currentLang__ || "es";
+          return (
+            key.split(".").reduce((o, k) => o?.[k], window.__i18n__?.[lang]) ??
+            key
+          );
         };
         if (status) status.textContent = t("contact.form.sending");
 
@@ -675,36 +1684,50 @@ const i18n = { es, en };
           submittedAtInput.value = Date.now().toString();
         }
 
-        const data = new FormData(form!);
+        if (recaptchaSiteKey && !captchaTokenInput?.value) {
+          if (status) status.textContent = t("contact.form.captchaRequired");
+          return;
+        }
+
+        const data = new FormData(form);
         const payload = Object.fromEntries(data.entries());
 
         try {
           const response = await fetch("/.netlify/functions/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
           });
 
           const result = await response.json();
           if (!response.ok || !result.ok) {
-            throw new Error(result.message || "No se pudo enviar el formulario");
+            throw new Error(
+              result.message || "No se pudo enviar el formulario",
+            );
           }
 
-          form!.reset();
+          form.reset();
+          resetRecaptcha();
+          checkFormValidity();
           if (status) status.textContent = t("contact.form.success");
         } catch (error) {
-          if (status) status.textContent = error instanceof Error ? error.message : t("contact.form.error");
+          if (recaptchaSiteKey) resetRecaptcha();
+          if (status)
+            status.textContent =
+              error instanceof Error ? error.message : t("contact.form.error");
         }
       });
 
       // --- Custom service dropdown ---
       (function () {
-        const dropdown  = document.getElementById("service-dropdown");
-        const btn       = document.getElementById("service-btn") as HTMLButtonElement | null;
-        const listbox   = document.getElementById("service-listbox");
-        const display   = document.getElementById("service-display") as HTMLElement | null;
-        const hidden    = document.getElementById("service-value") as HTMLInputElement | null;
-        const options   = listbox?.querySelectorAll<HTMLLIElement>("li[data-value]:not([data-value=''])");
+        const dropdown = document.getElementById("service-dropdown");
+        const btn = document.getElementById("service-btn");
+        const listbox = document.getElementById("service-listbox");
+        const display = document.getElementById("service-display");
+        const hidden = document.getElementById("service-value");
+        const options = listbox?.querySelectorAll(
+          "li[data-value]:not([data-value=''])",
+        );
 
         function openDropdown() {
           dropdown?.classList.add("open");
@@ -714,47 +1737,57 @@ const i18n = { es, en };
           dropdown?.classList.remove("open");
           btn?.setAttribute("aria-expanded", "false");
         }
-        function selectOption(li: HTMLLIElement) {
+        function selectOption(li) {
           const value = li.dataset.value ?? "";
           if (!value) return;
-          hidden!.value = value;
+          hidden.value = value;
 
           // Update display text & colour
-          const labelText = li.querySelector(".service-option-label")?.textContent ?? "";
-          display!.textContent = labelText;
-          display!.classList.remove("text-[var(--muted)]");
-          display!.classList.add("text-[var(--ink)]");
+          const labelText =
+            li.querySelector(".service-option-label")?.textContent ?? "";
+          display.textContent = labelText;
+          display.classList.remove("text-[var(--muted)]");
+          display.classList.add("text-[var(--ink)]");
 
           // Update aria-selected
           options?.forEach((o) => o.setAttribute("aria-selected", "false"));
           li.setAttribute("aria-selected", "true");
 
           closeDropdown();
+          checkFormValidity();
         }
         function resetDropdown() {
-          hidden!.value = "";
-          const placeholder = listbox?.querySelector<HTMLLIElement>("li[data-value='']");
-          display!.textContent = placeholder?.textContent?.trim() ?? "";
-          display!.classList.add("text-[var(--muted)]");
-          display!.classList.remove("text-[var(--ink)]");
+          hidden.value = "";
+          const placeholder = listbox?.querySelector("li[data-value='']");
+          display.textContent = placeholder?.textContent?.trim() ?? "";
+          display.classList.add("text-[var(--muted)]");
+          display.classList.remove("text-[var(--ink)]");
           options?.forEach((o) => o.setAttribute("aria-selected", "false"));
         }
 
         // Expose sync for i18n lang change
-        (window as any).__syncServiceDisplay__ = function () {
+        window.__syncServiceDisplay__ = function () {
           const value = hidden?.value;
           if (!value) {
-            const placeholder = listbox?.querySelector<HTMLLIElement>("li[data-value='']");
-            if (placeholder && display) display.textContent = placeholder.textContent?.trim() ?? "";
+            const placeholder = listbox?.querySelector("li[data-value='']");
+            if (placeholder && display)
+              display.textContent = placeholder.textContent?.trim() ?? "";
           } else {
-            const selected = listbox?.querySelector<HTMLLIElement>(`li[data-value="${value}"]`);
-            if (selected && display) display.textContent = selected.querySelector(".service-option-label")?.textContent ?? "";
+            const selected = listbox?.querySelector(
+              `li[data-value="${value}"]`,
+            );
+            if (selected && display)
+              display.textContent =
+                selected.querySelector(".service-option-label")?.textContent ??
+                "";
           }
         };
 
         btn?.addEventListener("click", (e) => {
           e.stopPropagation();
-          dropdown?.classList.contains("open") ? closeDropdown() : openDropdown();
+          dropdown?.classList.contains("open")
+            ? closeDropdown()
+            : openDropdown();
         });
 
         options?.forEach((li) => {
@@ -762,11 +1795,13 @@ const i18n = { es, en };
         });
 
         document.addEventListener("click", (e) => {
-          if (!dropdown?.contains(e.target as Node)) closeDropdown();
+          if (!(e.target instanceof Node)) return;
+          if (!dropdown?.contains(e.target)) closeDropdown();
         });
 
         document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && dropdown?.classList.contains("open")) closeDropdown();
+          if (e.key === "Escape" && dropdown?.classList.contains("open"))
+            closeDropdown();
         });
 
         form?.addEventListener("reset", () => setTimeout(resetDropdown, 0));
@@ -775,17 +1810,18 @@ const i18n = { es, en };
       // --- Theme toggle (epic circular reveal) ---
       const themeToggle = document.getElementById("theme-toggle");
 
-      function applyTheme(newTheme: string) {
+      function applyTheme(newTheme) {
         document.documentElement.setAttribute("data-theme", newTheme);
         localStorage.setItem("theme", newTheme);
       }
 
-      themeToggle?.addEventListener("click", async (e: MouseEvent) => {
-        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      themeToggle?.addEventListener("click", async (e) => {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
         const newTheme = isDark ? "light" : "dark";
 
         // Fallback for browsers without View Transitions
-        if (!(document as any).startViewTransition) {
+        if (!document.startViewTransition) {
           applyTheme(newTheme);
           return;
         }
@@ -793,13 +1829,15 @@ const i18n = { es, en };
         const { clientX, clientY } = e;
         const maxRadius = Math.hypot(
           Math.max(clientX, window.innerWidth - clientX),
-          Math.max(clientY, window.innerHeight - clientY)
+          Math.max(clientY, window.innerHeight - clientY),
         );
 
         // Suppress competing element transitions during the view transition
         document.documentElement.classList.add("theme-switching");
 
-        const transition = (document as any).startViewTransition(() => applyTheme(newTheme));
+        const transition = document.startViewTransition(() =>
+          applyTheme(newTheme),
+        );
 
         await transition.ready;
 
@@ -814,7 +1852,7 @@ const i18n = { es, en };
             duration: 800,
             easing: "cubic-bezier(0.4, 0, 0.2, 1)",
             pseudoElement: "::view-transition-new(root)",
-          }
+          },
         );
 
         anim.addEventListener("finish", () => {

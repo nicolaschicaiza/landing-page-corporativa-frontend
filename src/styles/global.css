@@ -48,8 +48,8 @@
   --point-border: #d5cdbf;
   --point-bg: rgba(255, 255, 255, 0.5);
   --point-color: #516071;
-  --results-border: #cfd8de;
-  --results-bg: linear-gradient(160deg, #f7fcff, #eef4f7);
+  --results-border: #bcc9d2;
+  --results-bg: linear-gradient(160deg, #edf4f8, #e2ebf0);
   --lead-border: #d3cabb;
   --lead-bg: linear-gradient(165deg, #fffdfa, #f5efe7);
   --input-border: #cbc3b8;
@@ -193,8 +193,8 @@
   --point-border: #283040;
   --point-bg: rgba(255, 255, 255, 0.04);
   --point-color: var(--muted);
-  --results-border: #1e2d3a;
-  --results-bg: linear-gradient(160deg, #141c28, #111622);
+  --results-border: #233445;
+  --results-bg: linear-gradient(160deg, #101824, #0c121c);
   --lead-border: #252f42;
   --lead-bg: linear-gradient(165deg, #141822, #111520);
   --input-border: #2e3a50;
@@ -334,6 +334,16 @@ main > section > * {
 }
 .btn-primary:hover {
   background: linear-gradient(140deg, var(--brand-strong), #3355ee);
+}
+.btn-primary:disabled {
+  background: var(--line);
+  box-shadow: none;
+  color: var(--muted);
+}
+
+/* Hide reCAPTCHA iframe during View Transition to avoid blank-iframe artefact */
+html.theme-switching #recaptcha-widget {
+  visibility: hidden;
 }
 
 /* ── Hamburger spans ────────────────────────────────────── */

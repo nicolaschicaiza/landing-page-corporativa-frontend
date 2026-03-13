@@ -91,23 +91,33 @@
     }
   },
   "results": {
-    "article1": {
-      "label": "Operación",
-      "value": "+120",
-      "title": "Sprints ejecutados",
-      "desc": "Con equipos de producto y marketing en distintas industrias."
-    },
-    "article2": {
-      "label": "Eficiencia",
-      "value": "98%",
-      "title": "Entregas a tiempo",
-      "desc": "Priorización clara y seguimiento semanal de hitos."
-    },
-    "article3": {
-      "label": "Atención",
-      "value": "24h",
-      "title": "Tiempo de respuesta",
-      "desc": "Atención directa para desbloquear decisiones y avanzar rápido."
+    "eyebrow": "Proyectos realizados",
+    "headline": "Proyectos diseñados para impulsar resultados, eficiencia y crecimiento digital",
+    "lead": "Explora una selección de soluciones creadas con enfoque estratégico, ejecución técnica y una visión clara de negocio para generar impacto medible.",
+    "projects": {
+      "cta": "Ver proyecto",
+      "items": {
+        "1": {
+          "name": "Portal comercial B2B",
+          "description": "Plataforma para captación de leads, gestión de catálogos y seguimiento comercial con foco en conversión.",
+          "projectType": "Plataforma web"
+        },
+        "2": {
+          "name": "Landing de captación SaaS",
+          "description": "Landing page optimizada para campañas digitales, automatización de formularios y medición de embudos.",
+          "projectType": "Landing page"
+        },
+        "3": {
+          "name": "Dashboard operativo",
+          "description": "Panel interno para visualizar métricas clave, automatizar reportes y acelerar la toma de decisiones.",
+          "projectType": "Dashboard"
+        },
+        "4": {
+          "name": "Sistema de automatización comercial",
+          "description": "Solución orientada a flujos de trabajo, seguimiento de oportunidades y coordinación entre marketing y ventas.",
+          "projectType": "Automatización"
+        }
+      }
     }
   },
   "faq": {
@@ -182,8 +192,10 @@
       "service5": "QA y calidad",
       "message": "Cuéntanos sobre tu proyecto",
       "messagePlaceholder": "Describe brevemente qué quieres construir, mejorar o resolver. Mientras más detalles, mejor podemos orientarte.",
+      "captchaHelp": "Completa el reCAPTCHA para enviar tu consulta.",
+      "captchaRequired": "Completa la verificación captcha antes de enviar.",
       "company": "Empresa",
-      "submit": "Enviar consulta",
+      "submit": "Enviar mensaje",
       "sending": "Enviando...",
       "success": "Gracias. Te contactaremos pronto.",
       "error": "Error inesperado"
