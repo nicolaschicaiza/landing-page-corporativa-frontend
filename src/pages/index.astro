@@ -135,6 +135,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
       <i data-lucide="chevron-up" class="w-5 h-5 block"></i>
     </button>
 
+    <a id="scroll-down" href="#servicios" class="scroll-down-btn fixed left-1/2 bottom-6 -translate-x-1/2 z-[210] inline-flex items-center justify-center w-[52px] h-[52px] rounded-full border border-[var(--line)] bg-[var(--paper)]/80 backdrop-blur-sm text-[var(--brand-strong)] shadow-[0_6px_18px_rgba(0,0,0,0.18)] transition-[opacity,transform,color,background] duration-300" aria-label="Deslizar hacia servicios" title="Deslizar hacia servicios">
+      <i data-lucide="chevron-down" class="w-7 h-7 block"></i>
+    </a>
+
     <main>
       <!-- ── Hero ────────────────────────────────────────── -->
       <section
@@ -1393,7 +1397,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
       const updateScrollButtons = () => {
         const showDown = window.scrollY < window.innerHeight * 0.45;
-        scrollDownBtn?.classList.toggle("visible", showDown);
+        scrollDownBtn?.classList.toggle("is-hidden", !showDown);
         scrollTopBtn?.classList.toggle("visible", !showDown);
       };
 
