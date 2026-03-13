@@ -66,6 +66,88 @@
   --list-color: #334254;
 }
 
+/* ── Custom service dropdown ─────────────────────────── */
+.service-listbox {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-6px) scaleY(0.97);
+  transform-origin: top center;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 0s 180ms;
+  pointer-events: none;
+}
+
+#service-dropdown.open .service-listbox {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scaleY(1);
+  pointer-events: auto;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 0s 0s;
+}
+
+#service-dropdown.open #service-btn {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 2px var(--input-focus-outline);
+}
+
+#service-btn:focus-visible {
+  outline: none;
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 2px var(--input-focus-outline);
+}
+
+#service-dropdown.open #service-chevron {
+  transform: rotate(180deg);
+}
+
+/* Icon badges */
+.icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  transition: transform 150ms ease;
+}
+.icon-badge-dev   { background: color-mix(in srgb, #3b5bfd 12%, transparent); color: #3b5bfd; }
+.icon-badge-pm    { background: color-mix(in srgb, #7048e8 12%, transparent); color: #7048e8; }
+.icon-badge-mkt   { background: color-mix(in srgb, #e8590c 12%, transparent); color: #e8590c; }
+.icon-badge-cloud { background: color-mix(in srgb, #0c8599 12%, transparent); color: #0c8599; }
+.icon-badge-qa    { background: color-mix(in srgb, #2f9e44 12%, transparent); color: #2f9e44; }
+
+/* Check indicator — hidden by default */
+.service-check {
+  display: none;
+  color: var(--brand);
+}
+
+/* Option states */
+.service-option[data-value]:not([data-value=""]) {
+  color: var(--ink);
+  font-size: 0.93rem;
+}
+
+.service-option[data-value]:not([data-value=""]):hover {
+  background-color: var(--bg-soft);
+  box-shadow: inset 2px 0 0 var(--brand);
+}
+
+.service-option[data-value]:not([data-value=""]):hover .icon-badge {
+  transform: scale(1.12);
+}
+
+.service-option[aria-selected="true"] {
+  color: var(--brand);
+  font-weight: 600;
+  background-color: color-mix(in srgb, var(--brand) 7%, transparent);
+  box-shadow: inset 2px 0 0 var(--brand);
+}
+
+.service-option[aria-selected="true"] .service-check {
+  display: flex;
+}
+
 /* ── Active nav link ──────────────────────────────────── */
 #main-nav a.nav-link.nav-active {
   color: var(--brand);
