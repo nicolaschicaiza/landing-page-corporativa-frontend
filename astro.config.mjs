@@ -9,6 +9,9 @@ export default defineConfig({
   }),
   site: "https://example.netlify.app",
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ["simplixity.ngrok.pro", "unruddled-wilda-unsmugly.ngrok-free.dev"]
+    }
   }
 });

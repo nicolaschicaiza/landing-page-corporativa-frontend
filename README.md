@@ -33,6 +33,11 @@ Opcional para notificaciones por correo de nuevos leads:
 - `NOTIFY_EMAIL_FROM` (ej: `Leads Intellia <no-reply@intellia.dev>`)
 - `NOTIFY_EMAIL_TO` (correo destino interno)
 
+Opcional para proteger el formulario con Google reCAPTCHA:
+
+- `PUBLIC_RECAPTCHA_SITE_KEY`
+- `RECAPTCHA_SECRET_KEY`
+
 ## Endpoint de leads
 
 - URL: `/.netlify/functions/contact`
@@ -46,6 +51,7 @@ Opcional para notificaciones por correo de nuevos leads:
   "service": "desarrollo",
   "message": "Necesito una landing",
   "company": "",
+  "captchaToken": "token-recaptcha",
   "submittedAt": "1700000000000"
 }
 ```

@@ -1,0 +1,30 @@
+[
+  {
+    "nameKey": "results.projects.items.1.name",
+    "descriptionKey": "results.projects.items.1.description",
+    "projectTypeKey": "results.projects.items.1.projectType",
+    "url": "#contacto",
+    "image": "logo_app.webp"
+  },
+  {
+    "nameKey": "results.projects.items.2.name",
+    "descriptionKey": "results.projects.items.2.description",
+    "projectTypeKey": "results.projects.items.2.projectType",
+    "url": "#contacto",
+    "image": "logo_app.webp"
+  },
+  {
+    "nameKey": "results.projects.items.3.name",
+    "descriptionKey": "results.projects.items.3.description",
+    "projectTypeKey": "results.projects.items.3.projectType",
+    "url": "#contacto",
+    "image": "logo_app.webp"
+  },
+  {
+    "nameKey": "results.projects.items.4.name",
+    "descriptionKey": "results.projects.items.4.description",
+    "projectTypeKey": "results.projects.items.4.projectType",
+    "url": "#contacto",
+    "image": "logo_app.webp"
+  }
+]
