@@ -1,8 +1,7 @@
 ---
 import "../styles/global.css";
-import logo from "../images/logo.png";
-import logoLight from "../images/logo_light.png";
-import NavLinks from "../components/NavLinks.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import ProjectResultsGrid from "../components/ProjectResultsGrid.astro";
 import heroIllustration from "../images/illustrations/hero-services-storyset.svg";
 import faqIllustration from "../images/faq.svg";
@@ -55,95 +54,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
     <div class="bg-orb orb-a" aria-hidden="true"></div>
     <div class="bg-orb orb-b" aria-hidden="true"></div>
 
-    <!-- ── Header ─────────────────────────────────────────── -->
-    <header
-      class="sticky top-0 z-40 bg-[var(--header-bg)] backdrop-blur-[10px] border-b border-[var(--header-border)] transition-[background,border-color] duration-300"
-    >
-      <div class="wrapper flex justify-between items-center min-h-[74px]">
-        <a class="inline-flex items-center" href="#inicio">
-          <img
-            src={logo.src}
-            alt="IntelliaWorks"
-            class="logo-dark h-9 w-auto block"
-            width="160"
-            height="36"
-          />
-          <img
-            src={logoLight.src}
-            alt="IntelliaWorks"
-            class="logo-light h-9 w-auto"
-            width="160"
-            height="36"
-          />
-        </a>
-
-        <nav id="main-nav" class="flex items-center gap-5">
-          <NavLinks variant="header" />
-        </nav>
-
-        <div class="flex items-center gap-2">
-          <!-- Language switcher -->
-          <div class="relative" id="lang-switcher">
-            <button
-              class="inline-flex items-center gap-[0.28rem] border border-[var(--line)] rounded-lg bg-[var(--paper)] text-[var(--ink)] text-[0.8rem] font-semibold px-[0.6rem] py-[0.38rem] cursor-pointer transition-[border-color,background,color] duration-200 hover:border-[var(--brand)]"
-              id="lang-btn"
-              aria-label="Cambiar idioma"
-            >
-              <span id="lang-label">ES</span>
-              <i
-                data-lucide="chevron-down"
-                class="lang-chevron transition-transform duration-[220ms]"
-                style="width:13px;height:13px"></i>
-            </button>
-            <div
-              class="absolute top-[calc(100%+6px)] right-0 min-w-[130px] bg-[var(--paper)] border border-[var(--line)] rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] overflow-hidden z-[100]"
-              id="lang-dropdown"
-            >
-              <button
-                class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150"
-                data-lang="es">🇪🇸 Español</button
-              >
-              <button
-                class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150"
-                data-lang="en">🇬🇧 English</button
-              >
-            </div>
-          </div>
-
-          <!-- Theme toggle -->
-          <button
-            class="inline-flex items-center p-[3px] border border-[var(--line)] rounded-full bg-[var(--paper)] text-[var(--ink)] cursor-pointer relative transition-[border-color,background] duration-200 hover:border-[var(--brand)]"
-            id="theme-toggle"
-            aria-label="Cambiar tema"
-          >
-            <span class="toggle-thumb"></span>
-            <span id="wrap-sun"><i data-lucide="sun"></i></span>
-            <span id="wrap-moon"><i data-lucide="moon"></i></span>
-          </button>
-
-          <!-- Mobile menu button -->
-          <button
-            id="menu-toggle"
-            class="menu-toggle hidden border border-[var(--line)] rounded-[10px] w-[42px] h-[42px] items-center justify-center flex-col bg-[var(--paper)] relative"
-            type="button"
-            aria-label="Abrir menú"
-            data-i18n-aria="nav.menuLabel"
-          >
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Scroll top FAB -->
-    <button
-      id="scroll-top"
-      class="scroll-fab fixed bottom-8 right-8 z-[200] flex items-center justify-center w-[46px] h-[46px] rounded-full border-none bg-[var(--brand)] text-white cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.18)] opacity-0 pointer-events-none translate-y-3 transition-[opacity,transform] duration-300 hover:bg-[var(--brand-strong)]"
-      aria-label="Volver al inicio"
-    >
-      <i data-lucide="chevron-up" class="w-5 h-5 block"></i>
-    </button>
+    <SiteHeader />
 
     <a id="scroll-down" href="#servicios" class="scroll-down-btn fixed left-1/2 bottom-6 -translate-x-1/2 z-[210] inline-flex items-center justify-center w-[52px] h-[52px] rounded-full border border-[var(--line)] bg-[var(--paper)]/80 backdrop-blur-sm text-[var(--brand-strong)] shadow-[0_6px_18px_rgba(0,0,0,0.18)] transition-[opacity,transform,color,background] duration-300" aria-label="Deslizar hacia servicios" title="Deslizar hacia servicios">
       <i data-lucide="chevron-down" class="w-7 h-7 block"></i>
@@ -249,8 +160,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
         <div class="absolute left-1/2 bottom-5 -translate-x-1/2 z-[5]">
           <a
             href="#servicios"
-            id="scroll-down"
-            class="scroll-down-btn flex items-center justify-center w-[52px] h-[52px] border-none bg-transparent text-[var(--brand-strong)] opacity-0 pointer-events-none -translate-y-2 transition-[opacity,transform,color] duration-300"
+            id="scroll-down-hero"
+            class="flex items-center justify-center w-[52px] h-[52px] border-none bg-transparent text-[var(--brand-strong)] opacity-0 pointer-events-none -translate-y-2 transition-[opacity,transform,color] duration-300"
             aria-label="Deslizar hacia servicios"
           >
             <i data-lucide="chevron-down" class="w-8 h-8 block"></i>
@@ -1302,41 +1213,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
         </div>
       </section>
 
-      <!-- ── Footer ──────────────────────────────────────── -->
-      <footer class="w-[min(1120px,90vw)] mx-auto pt-0 pb-11">
-        <div
-          class="flex items-center justify-between gap-6 border-t border-[var(--footer-border)] pt-6 flex-wrap transition-[border-color] duration-300"
-        >
-          <a
-            href="#inicio"
-            class="inline-flex opacity-85 hover:opacity-100 transition-opacity duration-200"
-          >
-            <img
-              src={logo.src}
-              alt="IntelliaWorks"
-              class="footer-logo logo-dark h-8 w-auto block"
-              width="140"
-              height="32"
-            />
-            <img
-              src={logoLight.src}
-              alt="IntelliaWorks"
-              class="footer-logo logo-light h-8 w-auto"
-              width="140"
-              height="32"
-            />
-          </a>
-          <nav class="flex items-center gap-5 flex-wrap">
-            <NavLinks variant="footer" />
-          </nav>
-        </div>
-        <p
-          class="mt-3 text-[var(--muted)] text-[0.875rem] text-center w-full m-0"
-        >
-          &copy; {new Date().getFullYear()} IntelliaWorks. <span
-            data-i18n="footer.rights">Todos los derechos reservados.</span>
-        </p>
-      </footer>
+      <SiteFooter />
     </main>
 
     <script>
@@ -1390,8 +1267,9 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
       // --- fin custom scroll ---
 
       // --- Scroll down / scroll top ---
-      const scrollTopBtn = document.querySelector("#scroll-top");
       const scrollDownBtn = document.querySelector("#scroll-down");
+      let wasUpMode = null;
+      let isUpModeState = false;
 
       if ("scrollRestoration" in history) {
         history.scrollRestoration = "manual";
@@ -1401,15 +1279,62 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? "";
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       }
 
-      scrollTopBtn?.addEventListener("click", () => {
-        smoothScrollTo(0);
-      });
-
       const updateScrollButtons = () => {
-        const showDown = window.scrollY < window.innerHeight * 0.45;
-        scrollDownBtn?.classList.toggle("is-hidden", !showDown);
-        scrollTopBtn?.classList.toggle("visible", !showDown);
+        const y = window.scrollY;
+
+        // Hard lock at top to avoid oscillation caused by viewport height changes
+        if (y <= 8) {
+          isUpModeState = false;
+        } else {
+          // Fixed hysteresis thresholds in px (stable across dynamic browser UI changes)
+          const enterUpThreshold = 260;
+          const leaveUpThreshold = 140;
+
+          if (!isUpModeState && y > enterUpThreshold) {
+            isUpModeState = true;
+          } else if (isUpModeState && y < leaveUpThreshold) {
+            isUpModeState = false;
+          }
+        }
+
+        const isUpMode = isUpModeState;
+
+        if (
+          wasUpMode !== null &&
+          wasUpMode !== isUpMode &&
+          scrollDownBtn instanceof HTMLElement
+        ) {
+          scrollDownBtn.classList.remove("rolling-right", "rolling-left");
+          void scrollDownBtn.offsetWidth;
+          scrollDownBtn.classList.add(isUpMode ? "rolling-right" : "rolling-left");
+        }
+
+        scrollDownBtn?.classList.toggle("is-up", isUpMode);
+        wasUpMode = isUpMode;
+
+        if (scrollDownBtn instanceof HTMLAnchorElement) {
+          scrollDownBtn.setAttribute("href", isUpMode ? "#inicio" : "#servicios");
+          scrollDownBtn.setAttribute(
+            "aria-label",
+            isUpMode ? "Volver al inicio" : "Deslizar hacia servicios",
+          );
+          scrollDownBtn.setAttribute(
+            "title",
+            isUpMode ? "Volver al inicio" : "Deslizar hacia servicios",
+          );
+        }
       };
+
+      if (scrollDownBtn instanceof HTMLElement) {
+        scrollDownBtn.addEventListener("animationend", (event) => {
+          if (
+            event.animationName === "scrollFabRollRight" ||
+            event.animationName === "scrollFabRollLeft"
+          ) {
+            scrollDownBtn.classList.remove("rolling-right", "rolling-left");
+          }
+        });
+      }
 
       const updateBackgroundShift = () => {
         const y = window.scrollY;

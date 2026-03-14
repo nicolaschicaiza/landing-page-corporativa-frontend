@@ -1,0 +1,26 @@
+<div class="relative" id="lang-switcher">
+  <button
+    class="inline-flex items-center gap-[0.28rem] border border-[var(--line)] rounded-lg bg-[var(--paper)] text-[var(--ink)] text-[0.8rem] font-semibold px-[0.6rem] py-[0.38rem] cursor-pointer transition-[border-color,background,color] duration-200 hover:border-[var(--brand)]"
+    id="lang-btn"
+    aria-label="Cambiar idioma"
+  >
+    <span id="lang-label">ES</span>
+    <i
+      data-lucide="chevron-down"
+      class="lang-chevron transition-transform duration-[220ms]"
+      style="width:13px;height:13px"></i>
+  </button>
+  <div
+    class="absolute top-[calc(100%+6px)] right-0 min-w-[130px] bg-[var(--paper)] border border-[var(--line)] rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] overflow-hidden z-[100]"
+    id="lang-dropdown"
+  >
+    <button
+      class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150"
+      data-lang="es">🇪🇸 Español</button
+    >
+    <button
+      class="flex items-center gap-2 w-full px-[0.9rem] py-[0.55rem] text-left border-none bg-transparent text-[var(--muted)] text-[0.88rem] cursor-pointer hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] transition-[background,color] duration-150"
+      data-lang="en">🇬🇧 English</button
+    >
+  </div>
+</div>

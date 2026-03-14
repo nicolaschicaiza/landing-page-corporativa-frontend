@@ -1,0 +1,15 @@
+---
+import NavLinks from "./NavLinks.astro";
+
+interface Props {
+  variant?: "header" | "footer";
+  id?: string;
+  class?: string;
+}
+
+const { variant = "header", id, class: className = "" } = Astro.props;
+---
+
+<nav id={id} class={className}>
+  <NavLinks variant={variant} />
+</nav>
