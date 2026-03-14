@@ -341,11 +341,6 @@ main > section > * {
   color: var(--muted);
 }
 
-/* Hide reCAPTCHA iframe during View Transition to avoid blank-iframe artefact */
-html.theme-switching #recaptcha-widget {
-  visibility: hidden;
-}
-
 /* ── Hamburger spans ────────────────────────────────────── */
 #menu-toggle span {
   position: absolute;
