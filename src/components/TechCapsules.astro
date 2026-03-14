@@ -1,0 +1,26 @@
+---
+interface TechItem {
+  icon: string;
+  name: string;
+}
+
+interface Props {
+  items: TechItem[];
+  capsuleClass?: string;
+  containerClass?: string;
+}
+
+const { items = [], capsuleClass = "", containerClass = "" } = Astro.props as Props;
+
+const baseCapsuleClass =
+  "inline-flex items-center gap-2 rounded-full border border-[var(--card-border)] bg-[var(--paper)] px-4 py-2 text-[0.92rem] text-[var(--ink)] transition-[border-color,background,transform] duration-200";
+---
+
+<div class={`flex flex-wrap gap-3 ${containerClass}`}>
+  {items.map(({ icon, name }) => (
+    <span class={`${baseCapsuleClass} ${capsuleClass}`}>
+      <span aria-hidden="true" class="text-[1rem] leading-none">{icon}</span>
+      <span>{name}</span>
+    </span>
+  ))}
+</div>

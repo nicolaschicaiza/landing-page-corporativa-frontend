@@ -17,6 +17,7 @@ interface Props {
 const { variant = "header" } = Astro.props;
 
 const isHeader = variant === "header";
+const sectionHref = (hash: string) => `/${hash}`;
 
 const linkSize = isHeader ? "text-[0.95rem]" : "text-[0.9rem]";
 const baseLink = `${isHeader ? "nav-link " : ""}text-[var(--muted)] ${linkSize} hover:text-[var(--ink)] transition-colors duration-200`;
@@ -32,7 +33,7 @@ const navItems = [
 
 {navItems.map(({ href, label, i18n, section }) => (
   <a
-    href={href}
+    href={sectionHref(href)}
     class={baseLink}
     data-i18n={i18n}
     {...(isHeader ? { "data-section": section } : {})}
@@ -40,7 +41,13 @@ const navItems = [
 ))}
 
 <a
-  href="#contacto"
+  href="/develop"
+  class={baseLink}
+  data-i18n="nav.developers"
+>Developers</a>
+
+<a
+  href={sectionHref("#contacto")}
   class={ctaLink}
   data-i18n="nav.cta"
   {...(isHeader ? { "data-section": "contacto" } : {})}
