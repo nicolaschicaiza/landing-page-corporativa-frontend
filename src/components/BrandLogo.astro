@@ -1,0 +1,41 @@
+---
+import logo from "../images/logo.png";
+import logoLight from "../images/logo_light.png";
+
+interface Props {
+  variant?: "header" | "footer";
+  href?: string;
+  class?: string;
+}
+
+const { variant = "header", href = "#inicio", class: className = "" } = Astro.props;
+
+const isHeader = variant === "header";
+const defaultClass = isHeader
+  ? "inline-flex items-center"
+  : "inline-flex opacity-85 hover:opacity-100 transition-opacity duration-200";
+const composedClass = `${defaultClass} ${className}`.trim();
+
+const imageClass = isHeader
+  ? "h-9 w-auto"
+  : "footer-logo h-8 w-auto";
+const width = isHeader ? 160 : 140;
+const height = isHeader ? 36 : 32;
+---
+
+<a href={href} class={composedClass}>
+  <img
+    src={logo.src}
+    alt="IntelliaWorks"
+    class={`logo-dark ${imageClass} block`}
+    width={width}
+    height={height}
+  />
+  <img
+    src={logoLight.src}
+    alt="IntelliaWorks"
+    class={`logo-light ${imageClass}`}
+    width={width}
+    height={height}
+  />
+</a>

@@ -1,0 +1,19 @@
+---
+import BrandLogo from "./BrandLogo.astro";
+import SiteNav from "./SiteNav.astro";
+---
+
+<footer class="w-[min(1120px,90vw)] mx-auto pt-0 pb-11">
+  <div
+    class="flex items-center justify-between gap-6 border-t border-[var(--footer-border)] pt-6 flex-wrap transition-[border-color] duration-300"
+  >
+    <BrandLogo variant="footer" href="#inicio" />
+    <SiteNav variant="footer" class="flex items-center gap-5 flex-wrap" />
+  </div>
+  <p
+    class="mt-3 text-[var(--muted)] text-[0.875rem] text-center w-full m-0"
+  >
+    &copy; {new Date().getFullYear()} IntelliaWorks. <span
+      data-i18n="footer.rights">Todos los derechos reservados.</span>
+  </p>
+</footer>
