@@ -316,6 +316,18 @@ main > section > * {
 [data-theme="dark"] .footer-logo.logo-light { display: block; }
 [data-theme="dark"] .footer-logo.logo-dark  { display: none; }
 
+/* Header logo hover zoom */
+header a[href="#inicio"] .logo-dark,
+header a[href="#inicio"] .logo-light {
+  transition: transform 220ms ease;
+  transform-origin: center;
+}
+
+header a[href="#inicio"]:hover .logo-dark,
+header a[href="#inicio"]:hover .logo-light {
+  transform: scale(1.08);
+}
+
 /* ── Reveal animation ──────────────────────────────────── */
 .reveal-item {
   opacity: 0;
@@ -367,6 +379,26 @@ main > section > * {
 
 /* ── Desktop icon colours ───────────────────────────────── */
 @media (min-width: 761px) {
+  #main-nav a {
+    transition: transform 200ms ease;
+    transform-origin: center;
+  }
+
+  #main-nav a:hover {
+    transform: scale(1.06);
+  }
+
+  #lang-btn,
+  #theme-toggle {
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+    transform-origin: center;
+  }
+
+  #lang-btn:hover,
+  #theme-toggle:hover {
+    transform: scale(1.06);
+  }
+
   #wrap-sun, #wrap-moon {
     position: relative; z-index: 1;
     display: flex; align-items: center; justify-content: center;
